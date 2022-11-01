@@ -1,4 +1,4 @@
-package graph;
+package dijkstra;
 
 public interface ProcessedVertexes extends Vertex {
 

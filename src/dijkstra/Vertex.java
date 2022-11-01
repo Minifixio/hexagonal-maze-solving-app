@@ -1,4 +1,4 @@
-package graph;
+package dijkstra;
 
 import java.util.List;
 
