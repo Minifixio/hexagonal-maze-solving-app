@@ -10,12 +10,12 @@ public interface Vertex {
     public void setDistance(int distance);
 
     /**
-     * @param predecessor le predecesseur du sommet dans le chemin optimal
+     * @param predecessor le prédecesseur du sommet dans le chemin optimal
      */
     public void setPredecessor(Vertex predecessor);
 
     /**
-     * @return true si l'arrete a ete marquee, false sinon
+     * @return true si l'arrète a ete marquee, false sinon
      */
     public boolean isProcessed();
 

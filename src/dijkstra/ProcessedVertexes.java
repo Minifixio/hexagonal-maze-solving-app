@@ -8,7 +8,7 @@ public interface ProcessedVertexes extends Vertex {
     public boolean containsEndVertex();
 
     /**
-     * @param vertex
+     * @param vertex le sommet à ajouter
      */
     public void addVertex(Vertex vertex);
 
