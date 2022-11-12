@@ -3,6 +3,10 @@ package maze;
 import dijkstra.Graph;
 import dijkstra.Vertex;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.List;
 
 public class Maze implements Graph {
@@ -48,10 +52,10 @@ public class Maze implements Graph {
             for (int j=0; j<this.width; j++) {
                 switch(this.getBoxByCoords(j,i).getClass().getSimpleName()) {
                     case ("EmptyMazeBox"):
-                        line += "+";
+                        line += "🬀";
                         break;
                     case ("WallMazeBox"):
-                        line += "#";
+                        line += '█';
                         break;
                     case ("ArrivalMazeBox"):
                         line += "X";
@@ -62,6 +66,53 @@ public class Maze implements Graph {
                 }
             }
             System.out.println(line);
+        }
+    }
+    public Maze initFromTextFile(String fileName) throws MazeReadingException {
+        String fileLocation = "data/" + fileName + ".txt";
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(fileLocation));
+
+            try {
+                // Possible IOException si la lecture de la première ligne pose problème
+                this.width = br.readLine().length();
+                this.length = 1;
+                while (br.readLine() != null) this.length++;
+
+                System.out.println("Création d'un labyrinthe de longueur : " + this.length + " et de largeur " + this.width);
+
+                // On reset le Buffer car on a fait descendre le curseur jusqu'en bas pour avoir mazeLength
+                br = new BufferedReader(new FileReader(fileLocation));
+
+                String line = null;
+                int lineCount = 0;
+                while ((line = br.readLine()) != null) {
+
+                    // Si l'une des lignes n'est pas de la même taille que la première (avec la convention qu'un labyrinthe est rectangulaire)
+                    if (line.length() != this.width) {
+                        throw new MazeReadingException(fileLocation, lineCount, "Ligne de mauvaise taille");
+                    }
+
+                    for (int i = 0; i < line.length(); i++) {
+                        boolean boxValid = this.addBoxByCoords(i, lineCount, line.charAt(i));
+
+                        // Si le caractère n'est pas 'E', 'W', 'A' ou 'D'
+                        if (!boxValid) {
+                            throw new MazeReadingException(fileLocation, lineCount, "Mauvais caractère (" + line.charAt(i) + ") à la position " + i);
+                        }
+                    }
+                    lineCount += 1;
+                }
+                br.close();
+                this.printMaze();
+                return this;
+
+            } catch (IOException e) {
+                throw new MazeReadingException(fileLocation, 0, "Initialisation de la taille du labyrinthe");
+            }
+
+        } catch (FileNotFoundException e) {
+            throw new MazeReadingException(fileLocation, null, "Ouverture du fichier");
         }
     }
     public Vertex getBoxByCoords(int x, int y) {

@@ -18,7 +18,7 @@ public class MazeBox implements Vertex {
         this.processed = false;
     }
 
-    public void setDistance(int distance) {
+    public void setDistance(Integer distance) {
 
     }
 
