@@ -7,7 +7,7 @@ public interface Vertex {
     /**
      * @param distance distance a l'origine
      */
-    public void setDistance(int distance);
+    public void setDistance(Integer distance);
 
     /**
      * @param predecessor le prédecesseur du sommet dans le chemin optimal

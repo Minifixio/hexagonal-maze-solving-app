@@ -17,6 +17,7 @@ public class Dijkstra {
         processedVertexes.addVertex(startVertex);
         Vertex pivot = startVertex;
         minDistance.setMinDistance(startVertex, 0);
+        ShortestPaths previous = new Previous();
 
         for (Vertex vertex : graph.getAllVertexes()) {
             minDistance.setMinDistance(vertex, inf);
@@ -28,7 +29,8 @@ public class Dijkstra {
                 if (!successor.isProcessed()) {
                     if (minDistance.getMinDistance(pivot) + distance.distance(pivot, successor) < minDistance.getMinDistance(successor)) {
                         minDistance.setMinDistance(successor, minDistance.getMinDistance(pivot) + distance.distance(pivot, successor));
-                        successor.setPredecessor(pivot);
+                        //successor.setPredecessor(pivot);
+                        previous.setPredecessor(successor, pivot);
                     }
                 }
             }
@@ -41,6 +43,6 @@ public class Dijkstra {
 
             processedVertexes.addVertex(pivot);
         }
-        return null;
+        return previous;
     }
 }
