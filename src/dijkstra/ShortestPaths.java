@@ -3,7 +3,7 @@ package dijkstra;
 public interface ShortestPaths {
 
     /**
-     * @param vertex le sommet pour lequle on définit le prédecesseur
+     * @param vertex le sommet pour lequel on définit le prédecesseur
      * @param predecessor le sommet precedent dans l'arboresence depuis la racine
      */
     public void setPredecessor(Vertex vertex, Vertex predecessor);

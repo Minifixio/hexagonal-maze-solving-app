@@ -1,6 +1,6 @@
 package dijkstra;
 
-public interface ProcessedVertexes extends Vertex {
+public interface ProcessedVertexes {
 
     /**
      * @return true si le sommet de fin est present, false sinon
