@@ -6,8 +6,6 @@ public interface Graph {
 
     public List<Vertex> getAllVertexes();
 
-    public List<Vertex> getAllVertexesSorted();
-
     /**
      * @param vertex Le sommet pour lequel on cherche les successeurs
      * @return les sucesseurs de vertex
@@ -32,7 +30,13 @@ public interface Graph {
     public void setEndVertex(Vertex endVertex);
 
     /**
-     * @return les sommets pas encore marqués
+     * @return le sommet désigné comme sommet de départ
      */
-    public Vertex[] getUnprocessedVertexes();
+    public Vertex getStartVertex();
+
+    /**
+     * @return le sommet désigné comme sommet d'arrivée
+     */
+    public Vertex getEndVertex();
+
 }

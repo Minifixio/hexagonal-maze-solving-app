@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Maze implements Graph {
@@ -14,10 +15,11 @@ public class Maze implements Graph {
     public MazeBox[][] boxes;
     public int width;
     public int length;
+    private DepartureMazeBox departureMazeBox;
+    private ArrivalMazeBox arrivalMazeBox;
 
-    public Maze() {
-
-    }
+    // A retirer à terme si rien n'est passé en paramètre
+    public Maze() {}
 
     /**
      * @param x coord x de la case
@@ -34,10 +36,14 @@ public class Maze implements Graph {
                 this.boxes[x][y] = new EmptyMazeBox(this, x, y);
                 return true;
             case 'A':
+                ArrivalMazeBox arrival = new ArrivalMazeBox(this, x, y);
                 this.boxes[x][y] = new ArrivalMazeBox(this, x, y);
+                this.arrivalMazeBox = arrival;
                 return true;
             case 'D':
-                this.boxes[x][y] = new DepartureMazeBox(this, x, y);
+                DepartureMazeBox departure = new DepartureMazeBox(this, x, y);
+                this.boxes[x][y] = departure;
+                this.departureMazeBox = departure;
                 return true;
             default:
                 return false;
@@ -118,12 +124,15 @@ public class Maze implements Graph {
     }
 
     public List<Vertex> getAllVertexes() {
-        return null;
+        List<Vertex> res = new ArrayList<>();
+        for (int x=0; x<this.width; x++) {
+            for (int y=0; y<this.length; y++) {
+                res.add(getBoxByCoords(x,y));
+            }
+        }
+        return res;
     }
 
-    public List<Vertex> getAllVertexesSorted() {
-        return null;
-    }
 
     public List<Vertex> getSuccessors(Vertex vertex) {
         return null;
@@ -138,14 +147,19 @@ public class Maze implements Graph {
     }
 
     public void setStartVertex(Vertex startVertex) {
+        this.departureMazeBox = (DepartureMazeBox) startVertex;
+    }
 
+    public ArrivalMazeBox getEndVertex() {
+        return this.arrivalMazeBox;
+    }
+
+    public DepartureMazeBox getStartVertex() {
+        return this.departureMazeBox;
     }
 
     public void setEndVertex(Vertex endVertex) {
-
+        this.arrivalMazeBox = (ArrivalMazeBox) endVertex;
     }
 
-    public Vertex[] getUnprocessedVertexes() {
-        return new Vertex[0];
-    }
 }
