@@ -51,6 +51,7 @@ public class Maze implements Graph {
         }
     }
 
+    // TODO : Revoir la dstinction par rapport aux classes pour l'affichage
     public void printMaze() {
         for (int i=0; i<this.length; i++) {
             String line = "";
@@ -165,6 +166,7 @@ public class Maze implements Graph {
         System.out.println(pathToDeparture);
     }
 
+    // TODO : Revoir la dstinction par rapport aux classes pour l'affichage
     public void printPathInMaze(ShortestPaths shortestPaths) {
         MazeBox predecessor = (MazeBox) shortestPaths.getPredecessor(this.getEndVertex());
         while (predecessor != departureMazeBox) {
