@@ -4,8 +4,20 @@ import maze.MazeReadingException;
 
 public class MainTest {
 
-    private Maze maze;
+    private static Maze maze;
+
     public static void main(String[] args) throws MazeReadingException {
-        new DrawingApp();
+
+        maze = new Maze();
+
+        try {
+            maze.initFromTextFile(args[0]);
+        } catch (MazeReadingException e) {
+            throw e;
+        }
+
+        maze.printMaze();
     }
+
+
 }

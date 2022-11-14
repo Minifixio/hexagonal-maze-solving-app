@@ -15,10 +15,8 @@ public class Maze implements Graph {
     public int width;
     public int length;
 
-    public Maze(int width, int length) {
-        this.width = width;
-        this.length = length;
-        this.boxes = new MazeBox[width][length];
+    public Maze() {
+
     }
 
     /**
@@ -80,6 +78,7 @@ public class Maze implements Graph {
                 while (br.readLine() != null) this.length++;
 
                 System.out.println("Création d'un labyrinthe de longueur : " + this.length + " et de largeur " + this.width);
+                this.boxes = new MazeBox[this.width][this.length];
 
                 // On reset le Buffer car on a fait descendre le curseur jusqu'en bas pour avoir mazeLength
                 br = new BufferedReader(new FileReader(fileLocation));
@@ -104,7 +103,6 @@ public class Maze implements Graph {
                     lineCount += 1;
                 }
                 br.close();
-                this.printMaze();
                 return this;
 
             } catch (IOException e) {
