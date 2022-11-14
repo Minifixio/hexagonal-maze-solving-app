@@ -5,32 +5,32 @@ import java.util.List;
 public class Dijkstra {
 
     Integer inf = Integer.MAX_VALUE;
+    ShortestPaths shortestPaths = new ShortestPathsImpl();
+    ProcessedVertexes processedVertexes = new ProcessedVertexesImpl();
+    MinDistance minDistance = new MinDistanceImpl();
 
     public ShortestPaths dijkstra(
             Graph graph,
             Vertex startVertex,
             Vertex endVertex,
-            ProcessedVertexes processedVertexes,
-            MinDistance minDistance,
             Distance distance) {
 
         processedVertexes.addVertex(startVertex);
         Vertex pivot = startVertex;
         minDistance.setMinDistance(startVertex, 0);
-        ShortestPaths previous = new Previous();
 
         for (Vertex vertex : graph.getAllVertexes()) {
             minDistance.setMinDistance(vertex, inf);
         }
 
-        while (processedVertexes.containsEndVertex() == false) {
+        while (processedVertexes.contains(endVertex) == false) {
             List<Vertex> successors = pivot.getSuccessors();
             for (Vertex successor : successors) {
                 if (!successor.isProcessed()) {
                     if (minDistance.getMinDistance(pivot) + distance.distance(pivot, successor) < minDistance.getMinDistance(successor)) {
                         minDistance.setMinDistance(successor, minDistance.getMinDistance(pivot) + distance.distance(pivot, successor));
                         //successor.setPredecessor(pivot);
-                        previous.setPredecessor(successor, pivot);
+                        shortestPaths.setPredecessor(successor, pivot);
                     }
                 }
             }
@@ -43,6 +43,6 @@ public class Dijkstra {
 
             processedVertexes.addVertex(pivot);
         }
-        return previous;
+        return shortestPaths;
     }
 }

@@ -5,7 +5,7 @@ public interface ProcessedVertexes {
     /**
      * @return true si le sommet de fin est present, false sinon
      */
-    public boolean containsEndVertex();
+    public boolean contains(Vertex endVertex);
 
     /**
      * @param vertex le sommet à ajouter

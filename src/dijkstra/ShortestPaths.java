@@ -10,6 +10,7 @@ public interface ShortestPaths {
 
     /**
      * @param vertex le sommet pour lequel on recherche le sommet précédent correspondant au chemin le plus court depuis la racine
+     * @return
      */
-    public void getPredecessor(Vertex vertex);
+    public Vertex getPredecessor(Vertex vertex);
 }
