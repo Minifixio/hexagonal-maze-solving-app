@@ -9,25 +9,11 @@ public class MazeBox implements Vertex {
     public int x;
     public int y;
     private Maze maze;
-    private boolean processed;
 
     public MazeBox(Maze maze, int x, int y) {
         this.x = x;
         this.y = y;
         this.maze = maze;
-        this.processed = false;
-    }
-
-    public void setDistance(Integer distance) {
-
-    }
-
-    public void setPredecessor(Vertex predecessor) {
-
-    }
-
-    public boolean isProcessed() {
-        return this.processed;
     }
 
     public List<Vertex> getSuccessors() {
@@ -37,7 +23,6 @@ public class MazeBox implements Vertex {
                     this.x+i > 0
                     && this.x+i < this.maze.width
                     && !(this.maze.getBoxByCoords(this.x+i, this.y) instanceof WallMazeBox)
-                    && !(this.maze.getBoxByCoords(this.x+i, this.y).isProcessed())
             ) {
                 successors.add(this.maze.getBoxByCoords(this.x+i, this.y));
             }
@@ -45,7 +30,6 @@ public class MazeBox implements Vertex {
                     this.y+i > 0
                     && this.y+i < this.maze.length
                     && !(this.maze.getBoxByCoords(this.x, this.y+i) instanceof WallMazeBox)
-                    && !(this.maze.getBoxByCoords(this.x, this.y+i).isProcessed())
             ) {
                 successors.add(this.maze.getBoxByCoords(this.x, this.y+i));
             }

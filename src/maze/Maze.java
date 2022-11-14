@@ -133,15 +133,6 @@ public class Maze implements Graph {
         return res;
     }
 
-
-    public List<Vertex> getSuccessors(Vertex vertex) {
-        return null;
-    }
-
-    public List<Vertex> getSuccessors() {
-        return null;
-    }
-
     public int getWeight(Vertex src, Vertex dst) {
         return 0;
     }
