@@ -1,6 +1,7 @@
 package maze;
 
 import dijkstra.Graph;
+import dijkstra.ShortestPaths;
 import dijkstra.Vertex;
 
 import java.io.BufferedReader;
@@ -18,7 +19,7 @@ public class Maze implements Graph {
     private DepartureMazeBox departureMazeBox;
     private ArrivalMazeBox arrivalMazeBox;
 
-    // A retirer à terme si rien n'est passé en paramètre
+    // TODO : A retirer à terme si rien n'est passé en paramètre
     public Maze() {}
 
     /**
@@ -38,12 +39,12 @@ public class Maze implements Graph {
             case 'A':
                 ArrivalMazeBox arrival = new ArrivalMazeBox(this, x, y);
                 this.boxes[x][y] = new ArrivalMazeBox(this, x, y);
-                this.arrivalMazeBox = arrival;
+                this.arrivalMazeBox = (ArrivalMazeBox) this.boxes[x][y];
                 return true;
             case 'D':
                 DepartureMazeBox departure = new DepartureMazeBox(this, x, y);
                 this.boxes[x][y] = departure;
-                this.departureMazeBox = departure;
+                this.departureMazeBox = (DepartureMazeBox) this.boxes[x][y];
                 return true;
             default:
                 return false;
@@ -119,7 +120,7 @@ public class Maze implements Graph {
             throw new MazeReadingException(fileLocation, null, "Ouverture du fichier");
         }
     }
-    public Vertex getBoxByCoords(int x, int y) {
+    public MazeBox getBoxByCoords(int x, int y) {
         return this.boxes[x][y];
     }
 
@@ -151,6 +152,51 @@ public class Maze implements Graph {
 
     public void setEndVertex(Vertex endVertex) {
         this.arrivalMazeBox = (ArrivalMazeBox) endVertex;
+    }
+
+    public void printShortestPath(Vertex vertex, ShortestPaths shortestPaths) {
+        MazeBox predecessor = (MazeBox) shortestPaths.getPredecessor(vertex);
+        String pathToDeparture = "";
+        while (predecessor != departureMazeBox) {
+            pathToDeparture += (" -> Box(" + Integer.toString(predecessor.x) + "," + Integer.toString(predecessor.y) + ")");
+            MazeBox predecessorTemp = (MazeBox) shortestPaths.getPredecessor(predecessor);
+            predecessor = predecessorTemp;
+        }
+        System.out.println(pathToDeparture);
+    }
+
+    public void printPathInMaze(ShortestPaths shortestPaths) {
+        MazeBox predecessor = (MazeBox) shortestPaths.getPredecessor(this.getEndVertex());
+        while (predecessor != departureMazeBox) {
+            predecessor.isInPath = true;
+            MazeBox predecessorTemp = (MazeBox) shortestPaths.getPredecessor(predecessor);
+            predecessor = predecessorTemp;
+        }
+        for (int i=0; i<this.length; i++) {
+            String line = "";
+            for (int j=0; j<this.width; j++) {
+                if (this.getBoxByCoords(j,i).isInPath){
+                    line += "•";
+                } else {
+                    switch(this.getBoxByCoords(j,i).getClass().getSimpleName()) {
+                        case ("EmptyMazeBox"):
+                            line += "🬀";
+                            break;
+                        case ("WallMazeBox"):
+                            line += '█';
+                            break;
+                        case ("ArrivalMazeBox"):
+                            line += "X";
+                            break;
+                        case ("DepartureMazeBox"):
+                            line += "O";
+                            break;
+                    }
+                }
+
+            }
+            System.out.println(line);
+        }
     }
 
 }

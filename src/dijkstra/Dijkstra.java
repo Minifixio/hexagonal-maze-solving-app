@@ -42,13 +42,13 @@ public class Dijkstra {
                 }
             }
 
-            // Revoir l'initialisation à null
+            // TODO : Revoir l'initialisation à null
             Vertex nextVertex = null;
-            Integer minDistanceNextVertex = 100000;
+            Integer minDistanceNextVertex = inf;
             for (Vertex vertex : graph.getAllVertexes()) {
                 if (!processedVertexes.contains(vertex)) {
                     Integer d = minDistance.getMinDistance(vertex);
-                    if (d < minDistanceNextVertex) {
+                    if (d <= minDistanceNextVertex) {
                         nextVertex = vertex;
                         minDistanceNextVertex = d;
                     }

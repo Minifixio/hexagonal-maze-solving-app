@@ -9,6 +9,7 @@ public class MazeBox implements Vertex {
     public int x;
     public int y;
     private Maze maze;
+    public boolean isInPath = false;
 
     public MazeBox(Maze maze, int x, int y) {
         this.x = x;

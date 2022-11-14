@@ -25,7 +25,8 @@ public class MainTest {
 
         ShortestPaths shortestPaths = Dijkstra.dijkstra(maze, maze.getStartVertex(), maze.getEndVertex(), mazeDistance);
 
-
+        maze.printShortestPath(maze.getEndVertex(), shortestPaths);
+        maze.printPathInMaze(shortestPaths);
     }
 
 
