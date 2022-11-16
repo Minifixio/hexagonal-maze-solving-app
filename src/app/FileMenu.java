@@ -1,12 +1,12 @@
 package app ;
-import javax.swing.* ;
+import javax.swing.*;
 
 public class FileMenu extends JMenu {
-    private final QuitMenuItem quitMenuItem ;
+    private final QuitMenuItem quitMenuItem;
 
-    public FileMenu(DrawingApp drawingApp) {
-        super("File");
-        add(quitMenuItem = new QuitMenuItem(drawingApp));
+    public FileMenu(MazeApp mazeApp) {
+        super("Fichier");
+        add(quitMenuItem = new QuitMenuItem(mazeApp));
     }
 
 }
