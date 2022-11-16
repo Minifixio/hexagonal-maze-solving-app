@@ -7,13 +7,6 @@ public interface Graph {
     public List<Vertex> getAllVertexes();
 
     /**
-     * @param src le sommet source
-     * @param dst le sommet destination
-     * @return la distance entre src et dst
-     */
-    public int getWeight(Vertex src, Vertex dst);
-
-    /**
      * @param startVertex le sommet désigné comme sommet de départ
      */
     public void setStartVertex(Vertex startVertex);

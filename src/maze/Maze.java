@@ -51,22 +51,21 @@ public class Maze implements Graph {
         }
     }
 
-    // TODO : Revoir la dstinction par rapport aux classes pour l'affichage
     public void printMaze() {
         for (int i=0; i<this.length; i++) {
             String line = "";
             for (int j=0; j<this.width; j++) {
-                switch(this.getBoxByCoords(j,i).getClass().getSimpleName()) {
-                    case ("EmptyMazeBox"):
+                switch (this.getBoxByCoords(j, i).type) {
+                    case ('E'):
                         line += "🬀";
                         break;
-                    case ("WallMazeBox"):
+                    case ('W'):
                         line += '█';
                         break;
-                    case ("ArrivalMazeBox"):
+                    case ('A'):
                         line += "X";
                         break;
-                    case ("DepartureMazeBox"):
+                    case ('D'):
                         line += "O";
                         break;
                 }
@@ -135,8 +134,8 @@ public class Maze implements Graph {
         return res;
     }
 
-    public int getWeight(Vertex src, Vertex dst) {
-        return 0;
+    public void setEndVertex(Vertex endVertex) {
+        this.arrivalMazeBox = (ArrivalMazeBox) endVertex;
     }
 
     public void setStartVertex(Vertex startVertex) {
@@ -151,9 +150,6 @@ public class Maze implements Graph {
         return this.departureMazeBox;
     }
 
-    public void setEndVertex(Vertex endVertex) {
-        this.arrivalMazeBox = (ArrivalMazeBox) endVertex;
-    }
 
     public void printShortestPath(Vertex vertex, ShortestPaths shortestPaths) {
         MazeBox predecessor = (MazeBox) shortestPaths.getPredecessor(vertex);
@@ -166,7 +162,6 @@ public class Maze implements Graph {
         System.out.println(pathToDeparture);
     }
 
-    // TODO : Revoir la dstinction par rapport aux classes pour l'affichage
     public void printPathInMaze(ShortestPaths shortestPaths) {
         MazeBox predecessor = (MazeBox) shortestPaths.getPredecessor(this.getEndVertex());
         while (predecessor != departureMazeBox) {
@@ -180,17 +175,17 @@ public class Maze implements Graph {
                 if (this.getBoxByCoords(j,i).isInPath){
                     line += "•";
                 } else {
-                    switch(this.getBoxByCoords(j,i).getClass().getSimpleName()) {
-                        case ("EmptyMazeBox"):
+                    switch(this.getBoxByCoords(j,i).type) {
+                        case ('E'):
                             line += "🬀";
                             break;
-                        case ("WallMazeBox"):
+                        case ('W'):
                             line += '█';
                             break;
-                        case ("ArrivalMazeBox"):
+                        case ('A'):
                             line += "X";
                             break;
-                        case ("DepartureMazeBox"):
+                        case ('D'):
                             line += "O";
                             break;
                     }

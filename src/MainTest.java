@@ -1,7 +1,5 @@
-import dijkstra.*;
-import maze.DepartureMazeBox;
+import app.MazeApp;
 import maze.Maze;
-import app.*;
 import maze.MazeDistance;
 import maze.MazeReadingException;
 
@@ -12,6 +10,7 @@ public class MainTest {
 
     public static void main(String[] args) throws MazeReadingException {
 
+        /**
         maze = new Maze();
         mazeDistance = new MazeDistance();
 
@@ -27,6 +26,8 @@ public class MainTest {
 
         maze.printShortestPath(maze.getEndVertex(), shortestPaths);
         maze.printPathInMaze(shortestPaths);
+         **/
+        new MazeApp(4,10,5);
     }
 
 

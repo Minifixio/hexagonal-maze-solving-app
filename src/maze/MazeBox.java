@@ -6,15 +6,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MazeBox implements Vertex {
+    // Les coordonnées (x,y) de la case
     public int x;
     public int y;
     private Maze maze;
     public boolean isInPath = false;
 
-    public MazeBox(Maze maze, int x, int y) {
+    // Le caractère type représente le type de case du Labyrinthe avec les correspondances suivantes :
+    // 'W' -> WallMazeBox
+    // 'E' -> EmptyMazeBox
+    // 'D' -> DepartureMazeBox
+    // 'A' -> ArrivalMazeBox
+    public char type;
+
+    public MazeBox(Maze maze, int x, int y, char type) {
         this.x = x;
         this.y = y;
         this.maze = maze;
+        this.type = type;
     }
 
     public List<Vertex> getSuccessors() {
