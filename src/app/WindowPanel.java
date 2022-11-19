@@ -3,6 +3,9 @@ package app;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Fenêtre principale affichant les différents panels
+ */
 public class WindowPanel extends JPanel {
 
     private final MazeEditorPanel mazeEditorPanel;

@@ -3,6 +3,9 @@ package app;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Panel contenant les outils de redimension du labyrinthe
+ */
 public class SizePickerPanel extends JPanel {
     private final MazeApp mazeApp;
     private final SizeValidationButton sizeValidationButton;

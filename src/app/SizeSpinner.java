@@ -2,6 +2,9 @@ package app;
 
 import javax.swing.*;
 
+/**
+ * Spinner permettent de choisir la valeur entière de la taille du labyrinthe
+ */
 public class SizeSpinner extends JSpinner {
     private final MazeApp mazeApp;
 
