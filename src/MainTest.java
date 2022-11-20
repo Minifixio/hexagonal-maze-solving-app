@@ -1,4 +1,4 @@
-import app.MazeApp;
+import ui.MazeApp;
 import maze.Maze;
 import maze.MazeDistance;
 import maze.MazeReadingException;

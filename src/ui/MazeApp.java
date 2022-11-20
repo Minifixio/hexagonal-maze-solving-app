@@ -1,9 +1,15 @@
-package app;
-import javax.swing.*;
+package ui;
+import model.MazeAppModel;
 
-public class MazeApp extends JFrame {
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
+public class MazeApp extends JFrame implements ChangeListener {
     private final MenuBar MenuBar;
     private final WindowPanel windowPanel;
+
+    private MazeAppModel mazeAppModel = new MazeAppModel();
     public int mazeMinSize;
     public int mazeMaxSize;
     public int mazeDefaultSize;
@@ -17,8 +23,23 @@ public class MazeApp extends JFrame {
 
         setJMenuBar(MenuBar = new MenuBar(this));
         setContentPane(windowPanel = new WindowPanel(this));
+
+        mazeAppModel.addObserver(this);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setVisible(true);
+    }
+
+    public MazeAppModel getMazeAppModel() {
+        return mazeAppModel;
+    }
+
+    public void setMazeAppModel(MazeAppModel mazeAppModel) {
+        this.mazeAppModel = mazeAppModel;
+    }
+
+    @Override
+    public void stateChanged(ChangeEvent e) {
+
     }
 }
