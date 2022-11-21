@@ -11,15 +11,17 @@ public class MazeAppModel {
     private Maze maze;
     private ArrayList<ChangeListener> listeners = new ArrayList<ChangeListener>();
     private ArrayList<Hexagon> hexagons = new ArrayList<Hexagon>();
-    private int gridSize;
+    private int gridWidth;
+    private int gridHeight;
     private int hexagonSize;
 
-    public MazeAppModel(int gridSize, int hexagonSize) {
-        this.gridSize = gridSize;
+    public MazeAppModel(int gridWidth, int gridHeight, int hexagonSize) {
+        this.gridWidth = gridWidth;
+        this.gridHeight = gridHeight;
         this.hexagonSize = hexagonSize;
     }
     public void drawPolygonGrid(Graphics g) {
-        System.out.println("Drawing polygon grid with size : "  + this.gridSize);
+        System.out.println("Drawing polygon grid with size : width "  + this.gridWidth + " height " + this.gridHeight);
 
         hexagons = new ArrayList<Hexagon>();
         // On initialise de manière à placer les hexagones dans le cadre du panel
@@ -27,9 +29,9 @@ public class MazeAppModel {
 
         int k = 0;
 
-        for(int i=0;i<gridSize;i++) {
+        for(int i=0;i<gridHeight;i++) {
             pos[1] = 2*hexagonSize*0.75*i + hexagonSize;
-            for(int j=0;j<gridSize;j++) {
+            for(int j=0;j<gridWidth;j++) {
 
                 // Selon la parité de i (coordonnée x), on décale ou pas la ligne d'hexagones (de 1/2*width) par rapport à la précédente
                 // Voir https://www.redblobgames.com/grids/hexagons/ pour l'explication géométrique
@@ -56,8 +58,11 @@ public class MazeAppModel {
         }
     }
 
-    public void setGridSize(int gridSize) {
-        this.gridSize = gridSize;
+    public void setGridWidth(int gridWidth) {
+        this.gridWidth = gridWidth;
+    }
+    public void setGridHeight(int gridHeight) {
+        this.gridHeight = gridHeight;
     }
 
     public void redrawHexagonGrid() {

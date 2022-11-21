@@ -27,7 +27,7 @@ public class MainTest {
         maze.printShortestPath(maze.getEndVertex(), shortestPaths);
         maze.printPathInMaze(shortestPaths);
          **/
-        new MazeApp(1000,1000,20, 5, 10);
+        new MazeApp(1000,1000,20, 5, 10, 10);
     }
 
 

@@ -11,21 +11,27 @@ public class MazeApp extends JFrame implements ChangeListener {
 
     private MazeAppModel mazeAppModel;
     public int mazeMinSize;
-    public int mazeMaxSize;
-    public int mazeDefaultSize;
+    public int mazeMaxWidth;
+
+    public int mazeMaxHeight;
+
+    public int mazeDefaultWidth;
+    public int mazeDefaultHeight;
     public int appWidth;
     public int appHeight;
 
-    public MazeApp(int appWidth, int appHeight, int hexagonSize, int mazeMinSize, int mazeDefaultSize) {
+    public MazeApp(int appWidth, int appHeight, int hexagonSize, int mazeMinSize, int mazeDefaultWidth, int mazeDefaultHeight) {
         super("Labyrinth");
 
         this.appWidth = appWidth;
         this.appHeight = appHeight;
         this.mazeMinSize = mazeMinSize;
-        this.mazeMaxSize = (int) (appWidth/(Math.sqrt(3)*hexagonSize));
-        this.mazeDefaultSize = mazeDefaultSize;
+        this.mazeMaxWidth = (int) (appWidth/(Math.sqrt(3)*hexagonSize));
+        this.mazeMaxHeight = (int) (appHeight/(2*hexagonSize));
+        this.mazeDefaultWidth = mazeDefaultWidth;
+        this.mazeDefaultHeight = mazeDefaultHeight;
 
-        this.mazeAppModel = new MazeAppModel(mazeDefaultSize, hexagonSize);
+        this.mazeAppModel = new MazeAppModel(mazeDefaultWidth, mazeDefaultHeight, hexagonSize);
 
         setJMenuBar(MenuBar = new MenuBar(this));
         setContentPane(windowPanel = new WindowPanel(this));
