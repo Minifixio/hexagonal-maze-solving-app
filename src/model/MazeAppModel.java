@@ -80,10 +80,24 @@ public class MazeAppModel {
     public MazeBox findMazeBoxFromClick(double x, double y) {
         for(int i=0;i<gridWidth;i++) {
             for(int j=0;j<gridHeight;j++) {
-
+                if (isInsideHexagon(x, y, maze.getBoxByCoords(i,j).getHexagon().getxCenter(), maze.getBoxByCoords(i,j).getHexagon().getyCenter(), this.hexagonSize)) {
+                    System.out.println("Is in : " + i + " " + j);
+                }
             }
         }
         return null;
+    }
+
+    // On teste si un point (x,y) est situé dans l'intérieur de l'hexagone de centre (xCenter, yCenter)
+    // Explications : http://www.playchilla.com/how-to-check-if-a-point-is-inside-a-hexagon
+    public boolean isInsideHexagon(double x, double y, double xCenter, double yCenter, int hexagonSize) {
+        double q2x = Math.abs(x - xCenter);
+        double q2y = Math.abs(y - yCenter);
+        if (q2x > Math.sqrt(3)*hexagonSize*0.5 || q2y > hexagonSize) {
+            return false;
+        } else {
+            return hexagonSize*Math.sqrt(3)*hexagonSize*0.5 - 0.5*hexagonSize*q2x - Math.sqrt(3)*hexagonSize*0.5*q2y >= 0;
+        }
     }
 
     public void setGridWidth(int gridWidth) {
