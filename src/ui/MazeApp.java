@@ -9,17 +9,23 @@ public class MazeApp extends JFrame implements ChangeListener {
     private final MenuBar MenuBar;
     private final WindowPanel windowPanel;
 
-    private MazeAppModel mazeAppModel = new MazeAppModel();
+    private MazeAppModel mazeAppModel;
     public int mazeMinSize;
     public int mazeMaxSize;
     public int mazeDefaultSize;
+    public int appWidth;
+    public int appHeight;
 
-    public MazeApp(int mazeMinSize, int mazeMaxSize, int mazeDefaultSize) {
+    public MazeApp(int appWidth, int appHeight, int hexagonSize, int mazeMinSize, int mazeDefaultSize) {
         super("Labyrinth");
 
+        this.appWidth = appWidth;
+        this.appHeight = appHeight;
         this.mazeMinSize = mazeMinSize;
-        this.mazeMaxSize = mazeMaxSize;
+        this.mazeMaxSize = (int) (appWidth/(Math.sqrt(3)*hexagonSize));
         this.mazeDefaultSize = mazeDefaultSize;
+
+        this.mazeAppModel = new MazeAppModel(mazeDefaultSize, hexagonSize);
 
         setJMenuBar(MenuBar = new MenuBar(this));
         setContentPane(windowPanel = new WindowPanel(this));
@@ -40,6 +46,6 @@ public class MazeApp extends JFrame implements ChangeListener {
 
     @Override
     public void stateChanged(ChangeEvent e) {
-
+        windowPanel.notifyForUpdates();
     }
 }

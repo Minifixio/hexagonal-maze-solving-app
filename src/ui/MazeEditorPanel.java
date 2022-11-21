@@ -18,12 +18,18 @@ public class MazeEditorPanel extends JPanel {
         addMouseListener(mazeEditorPanelMouseListener);
         addMouseMotionListener(mazeEditorPanelMouseListener);
 
-        setPreferredSize(new Dimension(300,300));
+        setPreferredSize(new Dimension(mazeApp.appWidth,mazeApp.appHeight));
     }
 
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        mazeApp.getMazeAppModel().drawPolygonGrid(8, 20, g);
+        mazeApp.getMazeAppModel().drawPolygonGrid(g);
+    }
+
+    public void notifyForUpdates() {
+        System.out.println("Redrawing MazeEditorPanel");
+        this.revalidate();
+        this.repaint();
     }
 
 }

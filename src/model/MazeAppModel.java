@@ -11,20 +11,32 @@ public class MazeAppModel {
     private Maze maze;
     private ArrayList<ChangeListener> listeners = new ArrayList<ChangeListener>();
     private ArrayList<Hexagon> hexagons = new ArrayList<Hexagon>();
+    private int gridSize;
+    private int hexagonSize;
 
-    public void drawPolygonGrid(int gridSize, int hexagonSize, Graphics g) {
+    public MazeAppModel(int gridSize, int hexagonSize) {
+        this.gridSize = gridSize;
+        this.hexagonSize = hexagonSize;
+    }
+    public void drawPolygonGrid(Graphics g) {
+        System.out.println("Drawing polygon grid with size : "  + this.gridSize);
+
         hexagons = new ArrayList<Hexagon>();
-        double[] pos = new double[]{2*hexagonSize,2*hexagonSize};
+        // On initialise de manière à placer les hexagones dans le cadre du panel
+        double[] pos = new double[]{hexagonSize,hexagonSize};
 
         int k = 0;
 
         for(int i=0;i<gridSize;i++) {
-            pos[1] = i*2*2*gridSize + gridSize;
+            pos[1] = 2*hexagonSize*0.75*i + hexagonSize;
             for(int j=0;j<gridSize;j++) {
+
+                // Selon la parité de i (coordonnée x), on décale ou pas la ligne d'hexagones (de 1/2*width) par rapport à la précédente
+                // Voir https://www.redblobgames.com/grids/hexagons/ pour l'explication géométrique
                 if (i%2 == 0) {
-                    pos[0] = j*Math.sqrt(3)*hexagonSize+0.5*Math.sqrt(3)*hexagonSize;
+                    pos[0] = j*Math.sqrt(3)*hexagonSize+0.5*Math.sqrt(3)*hexagonSize + hexagonSize;
                 } else {
-                    pos[0] = j*Math.sqrt(3)*hexagonSize;
+                    pos[0] = j*Math.sqrt(3)*hexagonSize + hexagonSize;
                 }
 
                 Color color = Color.BLACK;
@@ -43,11 +55,21 @@ public class MazeAppModel {
             }
         }
     }
+
+    public void setGridSize(int gridSize) {
+        this.gridSize = gridSize;
+    }
+
+    public void redrawHexagonGrid() {
+        this.stateChanges();
+    }
+
     public void addObserver(ChangeListener listener) {
         listeners.add(listener);
     }
 
     public void stateChanges() {
+        System.out.println("State changes");
         ChangeEvent evt = new ChangeEvent(this);
         for (ChangeListener listener : listeners) {
             listener.stateChanged(evt);
