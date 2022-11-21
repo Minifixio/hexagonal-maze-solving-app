@@ -10,7 +10,7 @@ public class Hexagon extends Path2D.Float {
     private double xCenter;
     private double yCenter;
 
-    public Hexagon(double xCenter, double yCenter, double size, Color color) {
+    public Hexagon(double xCenter, double yCenter, double size) {
         super();
         this.xCenter = xCenter;
         this.yCenter = yCenter;

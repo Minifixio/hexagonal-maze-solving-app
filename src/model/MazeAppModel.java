@@ -1,8 +1,6 @@
 package model;
 
-import maze.Maze;
-import maze.MazeBox;
-import maze.WallMazeBox;
+import maze.*;
 
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -21,13 +19,13 @@ public class MazeAppModel {
         this.gridWidth = gridWidth;
         this.gridHeight = gridHeight;
         this.hexagonSize = hexagonSize;
-        this.maze.initWallMaze(gridWidth, gridHeight);
+        this.maze.initEmptyMaze(gridWidth, gridHeight);
         this.resetHexagonGrid();
     }
     public void resetHexagonGrid() {
         System.out.println("Reset grid with size : width "  + this.gridWidth + " height " + this.gridHeight);
 
-        this.maze.initWallMaze(gridWidth, gridHeight);
+        this.maze.initEmptyMaze(gridWidth, gridHeight);
 
         // On initialise de manière à placer les hexagones dans le cadre du panel
         double[] pos = new double[]{hexagonSize,hexagonSize};
@@ -56,7 +54,7 @@ public class MazeAppModel {
                 }
                 k = k+1;
 
-                Hexagon h = new Hexagon(pos[0], pos[1], hexagonSize, color);
+                Hexagon h = new Hexagon(pos[0], pos[1], hexagonSize);
                 WallMazeBox w = new WallMazeBox(maze,j,i);
                 w.setHexagon(h);
                 maze.setBoxByCoords(j, i, w);
@@ -73,24 +71,49 @@ public class MazeAppModel {
         }
     }
 
-    public void changeMazeBox(double x, double y) {
+    private void getNextMazeBoxType(char type) {
 
     }
 
-    public MazeBox findMazeBoxFromClick(double x, double y) {
+    private void changeMazeBoxType(int x, int y) {
+        MazeBox box = maze.getBoxByCoords(x, y);
+        //Hexagon h = box.getHexagon();
+        MazeBox newBox = null;
+        switch(box.getType()) {
+            case 'E':
+                newBox = (MazeBox) new WallMazeBox(maze, x, y);
+                break;
+            case 'W':
+                newBox = (MazeBox) new DepartureMazeBox(maze, x, y);
+                break;
+            case 'D':
+                newBox = (MazeBox) new ArrivalMazeBox(maze, x, y);
+                break;
+            case 'A':
+                newBox = (MazeBox) new EmptyMazeBox(maze, x, y);
+                break;
+        }
+        Hexagon h = new Hexagon(box.getHexagon().getxCenter(), box.getHexagon().getyCenter(), hexagonSize);
+        newBox.setHexagon(h);
+        maze.setBoxByCoords(x,y, newBox);
+        maze.printMaze();
+    }
+
+    public void changeMazeBoxFromClick(double x, double y) {
         for(int i=0;i<gridWidth;i++) {
             for(int j=0;j<gridHeight;j++) {
                 if (isInsideHexagon(x, y, maze.getBoxByCoords(i,j).getHexagon().getxCenter(), maze.getBoxByCoords(i,j).getHexagon().getyCenter(), this.hexagonSize)) {
                     System.out.println("Is in : " + i + " " + j);
+                    this.changeMazeBoxType(i,j);
+                    this.stateChanges();
                 }
             }
         }
-        return null;
     }
 
     // On teste si un point (x,y) est situé dans l'intérieur de l'hexagone de centre (xCenter, yCenter)
     // Explications : http://www.playchilla.com/how-to-check-if-a-point-is-inside-a-hexagon
-    public boolean isInsideHexagon(double x, double y, double xCenter, double yCenter, int hexagonSize) {
+    private boolean isInsideHexagon(double x, double y, double xCenter, double yCenter, int hexagonSize) {
         double q2x = Math.abs(x - xCenter);
         double q2y = Math.abs(y - yCenter);
         if (q2x > Math.sqrt(3)*hexagonSize*0.5 || q2y > hexagonSize) {

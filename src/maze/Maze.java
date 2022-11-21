@@ -55,7 +55,7 @@ public class Maze implements Graph {
         for (int i=0; i<this.height; i++) {
             String line = "";
             for (int j=0; j<this.width; j++) {
-                switch (this.getBoxByCoords(j, i).type) {
+                switch (this.getBoxByCoords(j, i).getType()) {
                     case ('E'):
                         line += "🬀";
                         break;
@@ -121,10 +121,15 @@ public class Maze implements Graph {
         }
     }
 
-    public Maze initWallMaze(int width, int height) {
+    public Maze initEmptyMaze(int width, int height) {
         this.width = width;
         this.height = height;
-        this.boxes = new WallMazeBox[this.width][this.height];
+        this.boxes = new MazeBox[this.width][this.height];
+        for (int i=0; i<width; i++) {
+            for (int j=0;j<height; j++) {
+                this.setBoxByCoords(i,j, new EmptyMazeBox(this, i, j));
+            }
+        }
         return this;
     }
     public MazeBox getBoxByCoords(int x, int y) {
@@ -132,6 +137,7 @@ public class Maze implements Graph {
     }
 
     public void setBoxByCoords(int x, int y, MazeBox box) {
+        this.boxes[x][y] = null;
         this.boxes[x][y] = box;
     }
 
@@ -186,7 +192,7 @@ public class Maze implements Graph {
                 if (this.getBoxByCoords(j,i).isInPath){
                     line += "•";
                 } else {
-                    switch(this.getBoxByCoords(j,i).type) {
+                    switch(this.getBoxByCoords(j,i).getType()) {
                         case ('E'):
                             line += "🬀";
                             break;
