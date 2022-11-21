@@ -1,6 +1,8 @@
 package model;
 
 import maze.Maze;
+import maze.MazeBox;
+import maze.WallMazeBox;
 
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -8,22 +10,25 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class MazeAppModel {
-    private Maze maze;
     private ArrayList<ChangeListener> listeners = new ArrayList<ChangeListener>();
-    private ArrayList<Hexagon> hexagons = new ArrayList<Hexagon>();
+    //private ArrayList<Hexagon> hexagons = new ArrayList<Hexagon>();
     private int gridWidth;
     private int gridHeight;
     private int hexagonSize;
+    private Maze maze = new Maze();
 
     public MazeAppModel(int gridWidth, int gridHeight, int hexagonSize) {
         this.gridWidth = gridWidth;
         this.gridHeight = gridHeight;
         this.hexagonSize = hexagonSize;
+        this.maze.initWallMaze(gridWidth, gridHeight);
+        this.resetHexagonGrid();
     }
-    public void drawPolygonGrid(Graphics g) {
-        System.out.println("Drawing polygon grid with size : width "  + this.gridWidth + " height " + this.gridHeight);
+    public void resetHexagonGrid() {
+        System.out.println("Reset grid with size : width "  + this.gridWidth + " height " + this.gridHeight);
 
-        hexagons = new ArrayList<Hexagon>();
+        this.maze.initWallMaze(gridWidth, gridHeight);
+
         // On initialise de manière à placer les hexagones dans le cadre du panel
         double[] pos = new double[]{hexagonSize,hexagonSize};
 
@@ -52,10 +57,33 @@ public class MazeAppModel {
                 k = k+1;
 
                 Hexagon h = new Hexagon(pos[0], pos[1], hexagonSize, color);
-                hexagons.add(h);
+                WallMazeBox w = new WallMazeBox(maze,j,i);
+                w.setHexagon(h);
+                maze.setBoxByCoords(j, i, w);
+            }
+        }
+    }
+
+    public void refreshHexagonGrid(Graphics g) {
+        for(int i=0;i<gridWidth;i++) {
+            for(int j=0;j<gridHeight;j++) {
+                Hexagon h = maze.getBoxByCoords(i,j).getHexagon();
                 h.paint(g);
             }
         }
+    }
+
+    public void changeMazeBox(double x, double y) {
+
+    }
+
+    public MazeBox findMazeBoxFromClick(double x, double y) {
+        for(int i=0;i<gridWidth;i++) {
+            for(int j=0;j<gridHeight;j++) {
+
+            }
+        }
+        return null;
     }
 
     public void setGridWidth(int gridWidth) {
@@ -65,7 +93,12 @@ public class MazeAppModel {
         this.gridHeight = gridHeight;
     }
 
+    public int getHexagonSize() {
+        return hexagonSize;
+    }
+
     public void redrawHexagonGrid() {
+        this.resetHexagonGrid();
         this.stateChanges();
     }
 

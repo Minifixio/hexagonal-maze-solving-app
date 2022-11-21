@@ -1,6 +1,7 @@
 package maze;
 
 import dijkstra.Vertex;
+import model.Hexagon;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,9 @@ public class MazeBox implements Vertex {
     public int y;
     private Maze maze;
     public boolean isInPath = false;
+
+    // L'hexagone associé sur la représentation visuelle
+    private Hexagon hexagon;
 
     // Le caractère type représente le type de case du Labyrinthe avec les correspondances suivantes :
     // 'W' -> WallMazeBox
@@ -38,12 +42,20 @@ public class MazeBox implements Vertex {
             }
             if (
                     this.y+i > 0
-                    && this.y+i < this.maze.length
+                    && this.y+i < this.maze.height
                     && !(this.maze.getBoxByCoords(this.x, this.y+i) instanceof WallMazeBox)
             ) {
                 successors.add(this.maze.getBoxByCoords(this.x, this.y+i));
             }
         }
         return successors;
+    }
+
+    public void setHexagon(Hexagon hexagon) {
+        this.hexagon = hexagon;
+    }
+
+    public Hexagon getHexagon() {
+        return this.hexagon;
     }
 }

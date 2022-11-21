@@ -23,7 +23,7 @@ public class MazeEditorPanel extends JPanel {
 
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        mazeApp.getMazeAppModel().drawPolygonGrid(g);
+        mazeApp.getMazeAppModel().refreshHexagonGrid(g);
     }
 
     public void notifyForUpdates() {

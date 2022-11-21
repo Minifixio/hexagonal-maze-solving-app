@@ -15,7 +15,7 @@ public class Maze implements Graph {
 
     public MazeBox[][] boxes;
     public int width;
-    public int length;
+    public int height;
     private DepartureMazeBox departureMazeBox;
     private ArrivalMazeBox arrivalMazeBox;
 
@@ -52,7 +52,7 @@ public class Maze implements Graph {
     }
 
     public void printMaze() {
-        for (int i=0; i<this.length; i++) {
+        for (int i=0; i<this.height; i++) {
             String line = "";
             for (int j=0; j<this.width; j++) {
                 switch (this.getBoxByCoords(j, i).type) {
@@ -81,11 +81,11 @@ public class Maze implements Graph {
             try {
                 // Possible IOException si la lecture de la première ligne pose problème
                 this.width = br.readLine().length();
-                this.length = 1;
-                while (br.readLine() != null) this.length++;
+                this.height = 1;
+                while (br.readLine() != null) this.height++;
 
-                System.out.println("Création d'un labyrinthe de longueur : " + this.length + " et de largeur " + this.width);
-                this.boxes = new MazeBox[this.width][this.length];
+                System.out.println("Création d'un labyrinthe de longueur : " + this.height + " et de largeur " + this.width);
+                this.boxes = new MazeBox[this.width][this.height];
 
                 // On reset le Buffer car on a fait descendre le curseur jusqu'en bas pour avoir mazeLength
                 br = new BufferedReader(new FileReader(fileLocation));
@@ -120,14 +120,25 @@ public class Maze implements Graph {
             throw new MazeReadingException(fileLocation, null, "Ouverture du fichier");
         }
     }
+
+    public Maze initWallMaze(int width, int height) {
+        this.width = width;
+        this.height = height;
+        this.boxes = new WallMazeBox[this.width][this.height];
+        return this;
+    }
     public MazeBox getBoxByCoords(int x, int y) {
         return this.boxes[x][y];
+    }
+
+    public void setBoxByCoords(int x, int y, MazeBox box) {
+        this.boxes[x][y] = box;
     }
 
     public List<Vertex> getAllVertexes() {
         List<Vertex> res = new ArrayList<>();
         for (int x=0; x<this.width; x++) {
-            for (int y=0; y<this.length; y++) {
+            for (int y=0; y<this.height; y++) {
                 res.add(getBoxByCoords(x,y));
             }
         }
@@ -169,7 +180,7 @@ public class Maze implements Graph {
             MazeBox predecessorTemp = (MazeBox) shortestPaths.getPredecessor(predecessor);
             predecessor = predecessorTemp;
         }
-        for (int i=0; i<this.length; i++) {
+        for (int i=0; i<this.height; i++) {
             String line = "";
             for (int j=0; j<this.width; j++) {
                 if (this.getBoxByCoords(j,i).isInPath){
