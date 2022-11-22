@@ -32,8 +32,6 @@ public class MazeAppModel {
         // On initialise de manière à placer les hexagones dans le cadre du panel
         double[] pos = new double[]{hexagonSize,hexagonSize};
 
-        int k = 0;
-
         for(int i=0;i<gridHeight;i++) {
             pos[1] = 2*hexagonSize*0.75*i + hexagonSize;
             for(int j=0;j<gridWidth;j++) {
@@ -45,16 +43,6 @@ public class MazeAppModel {
                 } else {
                     pos[0] = j*Math.sqrt(3)*hexagonSize + hexagonSize;
                 }
-
-                Color color = Color.BLACK;
-                if (k%3 == 0) {
-                    color = Color.BLUE;
-                } else if (k%3 == 1) {
-                    color = Color.MAGENTA;
-                } else {
-                    color = Color.YELLOW;
-                }
-                k = k+1;
 
                 Hexagon h = new Hexagon(pos[0], pos[1], hexagonSize);
                 EmptyMazeBox w = new EmptyMazeBox(maze,j,i);

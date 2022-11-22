@@ -126,6 +126,8 @@ public class Maze implements Graph {
         this.width = width;
         this.height = height;
         this.boxes = new MazeBox[this.width][this.height];
+        this.setStartVertex(null);
+        this.setEndVertex(null);
         for (int i=0; i<width; i++) {
             for (int j=0;j<height; j++) {
                 this.setBoxByCoords(i,j, new EmptyMazeBox(this, i, j));
