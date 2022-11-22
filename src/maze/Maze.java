@@ -179,13 +179,17 @@ public class Maze implements Graph {
         System.out.println(pathToDeparture);
     }
 
-    public void printPathInMaze(ShortestPaths shortestPaths) {
+    public void setBoxesInPath(ShortestPaths shortestPaths) {
         MazeBox predecessor = (MazeBox) shortestPaths.getPredecessor(this.getEndVertex());
+
         while (predecessor != departureMazeBox) {
             predecessor.isInPath = true;
             MazeBox predecessorTemp = (MazeBox) shortestPaths.getPredecessor(predecessor);
             predecessor = predecessorTemp;
         }
+    }
+    public void printPathInMaze(ShortestPaths shortestPaths) {
+        setBoxesInPath(shortestPaths);
         for (int i=0; i<this.height; i++) {
             String line = "";
             for (int j=0; j<this.width; j++) {

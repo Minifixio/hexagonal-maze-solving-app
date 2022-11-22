@@ -1,5 +1,7 @@
 package model;
 
+import dijkstra.Dijkstra;
+import dijkstra.ShortestPaths;
 import maze.*;
 
 import javax.swing.event.ChangeEvent;
@@ -55,7 +57,7 @@ public class MazeAppModel {
                 k = k+1;
 
                 Hexagon h = new Hexagon(pos[0], pos[1], hexagonSize);
-                WallMazeBox w = new WallMazeBox(maze,j,i);
+                EmptyMazeBox w = new EmptyMazeBox(maze,j,i);
                 w.setHexagon(h);
                 maze.setBoxByCoords(j, i, w);
             }
@@ -71,8 +73,23 @@ public class MazeAppModel {
         }
     }
 
-    private void getNextMazeBoxType(char type) {
+    public void solveMaze() {
+        MazeDistance mazeDistance = new MazeDistance();
+        ShortestPaths shortestPaths = Dijkstra.dijkstra(maze, maze.getStartVertex(), maze.getEndVertex(), mazeDistance);
+        this.maze.printPathInMaze(shortestPaths);
+        this.drawCorrectPath();
+        this.stateChanges();
+    }
 
+    private void drawCorrectPath() {
+        for(int i=0;i<gridWidth;i++) {
+            for(int j=0;j<gridHeight;j++) {
+                MazeBox box = maze.getBoxByCoords(i,j);
+                if (box.isInPath) {
+                    box.setHexagonColor(Color.MAGENTA);
+                }
+            }
+        }
     }
 
     private void changeMazeBoxType(int x, int y) {
@@ -84,12 +101,31 @@ public class MazeAppModel {
                 newBox = (MazeBox) new WallMazeBox(maze, x, y);
                 break;
             case 'W':
+                System.out.println('W');
                 newBox = (MazeBox) new DepartureMazeBox(maze, x, y);
+                if (this.maze.getStartVertex() != null) {
+                    WallMazeBox w = new WallMazeBox(maze, this.maze.getStartVertex().x, this.maze.getStartVertex().y);
+                    Hexagon hw = new Hexagon(this.maze.getStartVertex().getHexagon().getxCenter(), this.maze.getStartVertex().getHexagon().getyCenter(), hexagonSize);
+                    w.setHexagon(hw);
+                    this.maze.setBoxByCoords(this.maze.getStartVertex().x, this.maze.getStartVertex().y, w);
+                }
+                this.maze.setEndVertex(null);
+                this.maze.setStartVertex(newBox);
                 break;
             case 'D':
+                System.out.println('D');
                 newBox = (MazeBox) new ArrivalMazeBox(maze, x, y);
+                if (this.maze.getEndVertex() != null) {
+                    WallMazeBox w = new WallMazeBox(maze, this.maze.getEndVertex().x, this.maze.getEndVertex().y);
+                    Hexagon hw = new Hexagon(this.maze.getEndVertex().getHexagon().getxCenter(), this.maze.getEndVertex().getHexagon().getyCenter(), hexagonSize);
+                    w.setHexagon(hw);
+                    this.maze.setBoxByCoords(this.maze.getEndVertex().x, this.maze.getEndVertex().y, w);
+                }
+                this.maze.setStartVertex(null);
+                this.maze.setEndVertex(newBox);
                 break;
             case 'A':
+                System.out.println('A');
                 newBox = (MazeBox) new EmptyMazeBox(maze, x, y);
                 break;
         }
@@ -106,6 +142,7 @@ public class MazeAppModel {
                     System.out.println("Is in : " + i + " " + j);
                     this.changeMazeBoxType(i,j);
                     this.stateChanges();
+                    return;
                 }
             }
         }

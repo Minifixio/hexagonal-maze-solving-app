@@ -2,6 +2,8 @@ package ui;
 
 import javax.swing.* ;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Panel contenant le bouton de résolution
@@ -13,4 +15,5 @@ public class SolvePanel extends JPanel {
         this.mazeApp = mazeApp ;
         setPreferredSize(new Dimension(100,100)) ;
     }
+
 }
