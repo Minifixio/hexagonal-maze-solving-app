@@ -3,6 +3,7 @@ package maze;
 import dijkstra.Graph;
 import dijkstra.ShortestPaths;
 import dijkstra.Vertex;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -179,7 +180,7 @@ public class Maze implements Graph {
         System.out.println(pathToDeparture);
     }
 
-    public void setBoxesInPath(ShortestPaths shortestPaths) {
+    public void setBoxesInPath(@NotNull ShortestPaths shortestPaths) {
         MazeBox predecessor = (MazeBox) shortestPaths.getPredecessor(this.getEndVertex());
 
         while (predecessor != departureMazeBox) {

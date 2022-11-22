@@ -31,7 +31,7 @@ public class MazeBox implements Vertex {
         this.type = type;
     }
 
-    public List<Vertex> getSuccessors() {
+    public List<Vertex> getSuccessors2() {
         List<Vertex> successors = new ArrayList<>();
         for (int i=-1; i<=1; i=i+2) {
             if (
@@ -52,7 +52,7 @@ public class MazeBox implements Vertex {
         return successors;
     }
 
-    public List<Vertex> getSuccessors2() {
+    public List<Vertex> getSuccessors() {
         List<Vertex> successors = new ArrayList<>();
         for (int i=-1; i<1; i=i+1) {
             for (int j=-1; j<2; j+=1) {

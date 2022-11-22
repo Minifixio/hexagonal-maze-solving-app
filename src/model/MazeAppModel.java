@@ -109,7 +109,6 @@ public class MazeAppModel {
                     w.setHexagon(hw);
                     this.maze.setBoxByCoords(this.maze.getStartVertex().x, this.maze.getStartVertex().y, w);
                 }
-                this.maze.setEndVertex(null);
                 this.maze.setStartVertex(newBox);
                 break;
             case 'D':
@@ -126,6 +125,7 @@ public class MazeAppModel {
                 break;
             case 'A':
                 System.out.println('A');
+                this.maze.setEndVertex(null);
                 newBox = (MazeBox) new EmptyMazeBox(maze, x, y);
                 break;
         }
