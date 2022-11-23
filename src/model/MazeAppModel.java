@@ -62,6 +62,7 @@ public class MazeAppModel {
     }
 
     public void solveMaze() {
+        this.maze.resetBoxesInPath();
         MazeDistance mazeDistance = new MazeDistance();
         ShortestPaths shortestPaths = Dijkstra.dijkstra(maze, maze.getStartVertex(), maze.getEndVertex(), mazeDistance);
         this.maze.printPathInMaze(shortestPaths);

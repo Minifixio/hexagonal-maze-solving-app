@@ -154,6 +154,15 @@ public class Maze implements Graph {
         return res;
     }
 
+    public void resetBoxesInPath() {
+        for (int i=0; i<this.width; i++) {
+            for(int j=0; j<this.height; j++) {
+                this.getBoxByCoords(i,j).isInPath = false;
+                this.getBoxByCoords(i,j).setDefaultColor();
+            }
+        }
+    }
+
     public void setEndVertex(Vertex endVertex) {
         this.arrivalMazeBox = (ArrivalMazeBox) endVertex;
     }

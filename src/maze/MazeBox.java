@@ -142,6 +142,10 @@ public class MazeBox implements Vertex {
         }
     }
 
+    public void setDefaultColor() {
+        this.hexagon.setColor(this.getColor());
+    }
+
     public char getType() {
         return this.type;
     }
