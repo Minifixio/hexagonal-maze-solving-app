@@ -1,7 +1,5 @@
 package ui;
 
-import ui.MazeApp;
-
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -13,7 +11,7 @@ public class SizeHeightSpinner extends JSpinner implements ChangeListener {
     private final MazeApp mazeApp;
 
     public SizeHeightSpinner(MazeApp mazeApp) {
-        super(new SpinnerNumberModel(mazeApp.mazeDefaultHeight, mazeApp.mazeMinSize, mazeApp.mazeMaxHeight, 1));
+        super(new SpinnerNumberModel(mazeApp.getMazeDefaultHeight(), mazeApp.getMazeMinSize(), mazeApp.getMazeMaxHeight(), 1));
         this.mazeApp = mazeApp;
         this.mazeApp.getMazeAppModel().setHeightSpinnerValue((int) this.getValue());
         addChangeListener(this);

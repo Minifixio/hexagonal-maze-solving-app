@@ -8,17 +8,14 @@ import javax.swing.event.ChangeListener;
 public class MazeApp extends JFrame implements ChangeListener {
     private final MenuBar MenuBar;
     private final WindowPanel windowPanel;
-
     private MazeAppModel mazeAppModel;
-    public int mazeMinSize;
-    public int mazeMaxWidth;
-
-    public int mazeMaxHeight;
-
-    public int mazeDefaultWidth;
-    public int mazeDefaultHeight;
-    public int appWidth;
-    public int appHeight;
+    private int mazeMinSize;
+    private int mazeMaxWidth;
+    private int mazeMaxHeight;
+    private int mazeDefaultWidth;
+    private int mazeDefaultHeight;
+    private int appWidth;
+    private int appHeight;
 
     public MazeApp(int appWidth, int appHeight, int hexagonSize, int mazeMinSize, int mazeDefaultWidth, int mazeDefaultHeight) {
         super("Labyrinth");
@@ -26,8 +23,10 @@ public class MazeApp extends JFrame implements ChangeListener {
         this.appWidth = appWidth;
         this.appHeight = appHeight;
         this.mazeMinSize = mazeMinSize;
+
+        // On calcule les dimension maximales pour que le layrinthe reste dans la fenêtre
         this.mazeMaxWidth = (int) (appWidth/(Math.sqrt(3)*hexagonSize)) - 1;
-        this.mazeMaxHeight = (int) (appHeight/(2*hexagonSize)) - 1;
+        this.mazeMaxHeight = (appHeight/(2*hexagonSize)) - 1;
         this.mazeDefaultWidth = mazeDefaultWidth;
         this.mazeDefaultHeight = mazeDefaultHeight;
 
@@ -46,12 +45,37 @@ public class MazeApp extends JFrame implements ChangeListener {
         return mazeAppModel;
     }
 
-    public void setMazeAppModel(MazeAppModel mazeAppModel) {
-        this.mazeAppModel = mazeAppModel;
-    }
-
     @Override
     public void stateChanged(ChangeEvent e) {
         windowPanel.notifyForUpdates();
     }
+
+    public int getMazeMinSize() {
+        return mazeMinSize;
+    }
+
+    public int getMazeMaxWidth() {
+        return mazeMaxWidth;
+    }
+
+    public int getMazeMaxHeight() {
+        return mazeMaxHeight;
+    }
+
+    public int getMazeDefaultWidth() {
+        return mazeDefaultWidth;
+    }
+
+    public int getMazeDefaultHeight() {
+        return mazeDefaultHeight;
+    }
+
+    public int getAppWidth() {
+        return appWidth;
+    }
+
+    public int getAppHeight() {
+        return appHeight;
+    }
+
 }

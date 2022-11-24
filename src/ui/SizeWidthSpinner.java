@@ -11,7 +11,7 @@ public class SizeWidthSpinner extends JSpinner implements ChangeListener {
     private final MazeApp mazeApp;
 
     public SizeWidthSpinner(MazeApp mazeApp) {
-        super(new SpinnerNumberModel(mazeApp.mazeDefaultWidth, mazeApp.mazeMinSize, mazeApp.mazeMaxWidth, 1));
+        super(new SpinnerNumberModel(mazeApp.getMazeDefaultWidth(), mazeApp.getMazeMinSize(), mazeApp.getMazeMaxWidth(), 1));
         this.mazeApp = mazeApp;
         this.mazeApp.getMazeAppModel().setWidthSpinnerValue((int) this.getValue());
         addChangeListener(this);

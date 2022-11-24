@@ -15,7 +15,6 @@ public class MazeEditorPanelMouseListener extends MouseAdapter implements MouseL
 
     @Override
     public final void mousePressed(MouseEvent e) {
-        System.out.println("Mouse Clicked");
         this.mazeApp.getMazeAppModel().changeMazeBoxFromClick(e.getX(), e.getY());
     }
 }
