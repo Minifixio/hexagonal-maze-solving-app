@@ -17,6 +17,6 @@ public class SizeValidationButton extends JButton implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        this.mazeApp.getMazeAppModel().redrawHexagonGrid();
+        this.mazeApp.getMazeAppModel().changeMazeSize();
     }
 }

@@ -6,7 +6,6 @@ import java.awt.geom.Path2D;
 public class Hexagon extends Path2D.Float {
 
     private Color color;
-
     private double xCenter;
     private double yCenter;
 
@@ -14,6 +13,10 @@ public class Hexagon extends Path2D.Float {
         super();
         this.xCenter = xCenter;
         this.yCenter = yCenter;
+
+        // On trace un "path" on faisant bouger le pinceau de tracé aux 6 sommets de l'hexagone
+        // A la fin on clot le "path" et on obtient une figure hexagonale
+        // Voir https://www.redblobgames.com/grids/hexagons/ pour l'explication des calculs des positions des sommets
         double height = 2*size;
         double width = Math.sqrt(3)*size;
         this.moveTo(xCenter, yCenter-0.5*height);

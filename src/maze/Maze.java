@@ -52,6 +52,13 @@ public class Maze implements Graph {
         }
     }
 
+    /**
+     * Permet d'afficher le labyrinthe dans la console avec la charte graphique suivante :
+     * EmptyMazeBox -> 🬀
+     * WallMazeBox -> █
+     * ArrivalMazeBox -> X
+     * DepartureMazeBox -> O
+     */
     public void printMaze() {
         for (int i=0; i<this.height; i++) {
             String line = "";
@@ -74,6 +81,12 @@ public class Maze implements Graph {
             System.out.println(line);
         }
     }
+
+    /**
+     * @param fileName le nom du fichier dans le répertoire /data
+     * @return le labyrinthe initialisé par lecture du fichier
+     * @throws MazeReadingException
+     */
     public Maze initFromTextFile(String fileName) throws MazeReadingException {
         String fileLocation = "data/" + fileName + ".txt";
         try {
@@ -122,12 +135,20 @@ public class Maze implements Graph {
         }
     }
 
+    /**
+     * @param width largeur du labyrinthe
+     * @param height hauteur du labyrinthe
+     * @return le labyrinthe de taille (width x height) initialisé avec seulement des EmptyMazeBox
+     */
     public Maze initEmptyMaze(int width, int height) {
         this.width = width;
         this.height = height;
         this.boxes = new MazeBox[this.width][this.height];
+
+        // Pas d'arrivée ou de départ fixé pour le moment
         this.setStartVertex(null);
         this.setEndVertex(null);
+
         for (int i=0; i<width; i++) {
             for (int j=0;j<height; j++) {
                 this.setBoxByCoords(i,j, new EmptyMazeBox(this, i, j));
@@ -135,15 +156,29 @@ public class Maze implements Graph {
         }
         return this;
     }
+
+    /**
+     * @param x
+     * @param y
+     * @return la MazeBox à la position (x,y)
+     */
     public MazeBox getBoxByCoords(int x, int y) {
         return this.boxes[x][y];
     }
 
+    /**
+     * @param x
+     * @param y
+     * @param box la MazeBox à attribuer en (x,y)
+     */
     public void setBoxByCoords(int x, int y, MazeBox box) {
         this.boxes[x][y] = null;
         this.boxes[x][y] = box;
     }
 
+    /**
+     * @return Toutes les cases du Labyrinthe
+     */
     public List<Vertex> getAllVertexes() {
         List<Vertex> res = new ArrayList<>();
         for (int x=0; x<this.width; x++) {
@@ -154,6 +189,9 @@ public class Maze implements Graph {
         return res;
     }
 
+    /**
+     * Permet de supprimer les tags "isInPath" des cases du chemin optimal pour pouvoir en tracer un nouveau
+     */
     public void resetBoxesInPath() {
         for (int i=0; i<this.width; i++) {
             for(int j=0; j<this.height; j++) {
@@ -180,6 +218,11 @@ public class Maze implements Graph {
     }
 
 
+    /**
+     * Fonction de debug pour voir les cases visitées pour chacunes des cases du Labyrinthe
+     * @param vertex le sommet pour lequel on veut afficher le chemin optimal depuis l'origine
+     * @param shortestPaths l'arborescence des plus courts chemins
+     */
     public void printShortestPath(Vertex vertex, ShortestPaths shortestPaths) {
         MazeBox predecessor = (MazeBox) shortestPaths.getPredecessor(vertex);
         String pathToDeparture = "";
@@ -191,15 +234,31 @@ public class Maze implements Graph {
         System.out.println(pathToDeparture);
     }
 
+    /**
+     * Marque les chemins appartenant au chemin optimal de l'origine au sommet de fin
+     * @param shortestPaths l'arborescence des plus courts chemins
+     */
     public void setBoxesInPath(@NotNull ShortestPaths shortestPaths) {
+        // On remonte succesivement les predecesseurs depuis arrivalMazeBox
         MazeBox predecessor = (MazeBox) shortestPaths.getPredecessor(this.getEndVertex());
 
+        // On s'arrête quand on tombe sur la case de départ
         while (predecessor != departureMazeBox) {
             predecessor.isInPath = true;
             MazeBox predecessorTemp = (MazeBox) shortestPaths.getPredecessor(predecessor);
             predecessor = predecessorTemp;
         }
     }
+
+    /**
+     * Permet de tracer le plus court chemins sur le Labyrinthe affiché dans la console avec la cherte graphique :
+     * EmptyMazeBox -> 🬀
+     * WallMazeBox -> █
+     * ArrivalMazeBox -> X
+     * DepartureMazeBox -> O
+     * Case du chemin optimal -> •
+     * @param shortestPaths l'arborescence des plus courts chemins
+     */
     public void printPathInMaze(ShortestPaths shortestPaths) {
         setBoxesInPath(shortestPaths);
         for (int i=0; i<this.height; i++) {

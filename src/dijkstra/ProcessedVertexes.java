@@ -11,6 +11,4 @@ public interface ProcessedVertexes {
      * @param vertex le sommet à ajouter
      */
     public void addVertex(Vertex vertex);
-
-    public static Vertex[] processedVertexes = new Vertex[0];
 }

@@ -8,20 +8,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MazeBox implements Vertex {
-    // Les coordonnées (x,y) de la case
     public int x;
     public int y;
     private Maze maze;
+
+    /**
+     * Indique si la case fait partie du chemin optimal de l'origine à la case de fin
+     */
     public boolean isInPath = false;
 
-    // L'hexagone associé sur la représentation visuelle
+    /**
+     * L'hexagone associé sur la représentation visuelle
+     */
     private Hexagon hexagon;
 
-    // Le caractère type représente le type de case du Labyrinthe avec les correspondances suivantes :
-    // 'W' -> WallMazeBox
-    // 'E' -> EmptyMazeBox
-    // 'D' -> DepartureMazeBox
-    // 'A' -> ArrivalMazeBox
+
+    /**
+     * Le caractère type représente le type de case du Labyrinthe avec les correspondances suivantes :
+     * 'W' -> WallMazeBox
+     * 'E' -> EmptyMazeBox
+     * 'D' -> DepartureMazeBox
+     * 'A' -> ArrivalMazeBox
+     */
     private char type;
 
     public MazeBox(Maze maze, int x, int y, char type) {
@@ -31,7 +39,12 @@ public class MazeBox implements Vertex {
         this.type = type;
     }
 
-    public List<Vertex> getSuccessors2() {
+
+    /**
+     * Fonction utilisée pour résoudre des Labyrinthe rectangulaire
+     * @return les sommets voisins dans une grille avec des carrés
+     */
+    public List<Vertex> getSuccessorsSquareGrid() {
         List<Vertex> successors = new ArrayList<>();
         for (int i=-1; i<=1; i=i+2) {
             if (
@@ -52,6 +65,9 @@ public class MazeBox implements Vertex {
         return successors;
     }
 
+    /**
+     * @return les sommets voisins dans une grille hexagonale
+     */
     public List<Vertex> getSuccessors() {
         List<Vertex> successors = new ArrayList<>();
 
@@ -122,11 +138,14 @@ public class MazeBox implements Vertex {
         return this.hexagon;
     }
 
-    // Renvoi la couleur associée au type de case :
-    // 'W' -> WallMazeBox -> DARK_GRAY
-    // 'E' -> EmptyMazeBox -> LIGHT_GRAY
-    // 'D' -> DepartureMazeBox -> YELLOW
-    // 'A' -> ArrivalMazeBox -> RED
+
+    /**
+     * @return Renvoi la couleur associée au type de case
+     * 'W' -> WallMazeBox -> DARK_GRAY
+     * 'E' -> EmptyMazeBox -> LIGHT_GRAY
+     * 'D' -> DepartureMazeBox -> YELLOW
+     * 'A' -> ArrivalMazeBox -> RED
+     */
     public Color getColor() {
         switch (this.type) {
             case 'W':

@@ -7,14 +7,26 @@ import maze.MazeDistance;
 
 import java.util.List;
 
+/**
+ * Classe implémentant l'algorithme de Dijkstra, permettant de calculer des plus courts chemins dans un graphe
+ */
 public class Dijkstra {
 
+    // Définition de l'infini, utilisé pour l'initialisation de la distance des sommets par rapport à l'origine
     static Integer inf = Integer.MAX_VALUE;
 
+    /**
+     * Méthode publique d'appel de Dijkstra où l'on passe en paramètre les classes ProcessedVertexesImpl, MinDistanceImpl et ShortestPathsImpl
+     * @param graph Le graph avec ses sommets à traiter
+     * @param startVertex Le sommet de départ (origine)
+     * @param endVertex Le sommet pour lequel on cherche la distance minimale par rapport à l'origine
+     * @param distance Une fonction indiquant le type de distance à utiliser dans le graphe
+     * @return L'arborescence des plus courts chemins par rapport à l'origine
+     */
     public static ShortestPaths dijkstra(Graph graph, Vertex startVertex, Vertex endVertex, Distance distance) {
         return dijkstra(graph, startVertex, endVertex, new ProcessedVertexesImpl(), new MinDistanceImpl(), distance, new ShortestPathsImpl());
     }
-    public static final ShortestPaths dijkstra(
+    private static final ShortestPaths dijkstra(
             Graph graph,
             Vertex startVertex,
             Vertex endVertex,
@@ -55,6 +67,7 @@ public class Dijkstra {
                 }
             }
 
+            // Si nextVertex==null, on a pas trouvé d'arrête adjacente à distance finie donc on rompt la boucle
             if (nextVertex == null) {
                 break;
             } else {

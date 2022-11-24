@@ -15,11 +15,12 @@ public class SizeHeightSpinner extends JSpinner implements ChangeListener {
     public SizeHeightSpinner(MazeApp mazeApp) {
         super(new SpinnerNumberModel(mazeApp.mazeDefaultHeight, mazeApp.mazeMinSize, mazeApp.mazeMaxHeight, 1));
         this.mazeApp = mazeApp;
+        this.mazeApp.getMazeAppModel().setHeightSpinnerValue((int) this.getValue());
         addChangeListener(this);
     }
 
     @Override
     public void stateChanged(ChangeEvent e) {
-        mazeApp.getMazeAppModel().setGridHeight((int) this.getValue());
+        mazeApp.getMazeAppModel().setHeightSpinnerValue((int) this.getValue());
     }
 }

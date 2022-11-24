@@ -14,6 +14,9 @@ public class MazeAppModel {
     //private ArrayList<Hexagon> hexagons = new ArrayList<Hexagon>();
     private int gridWidth;
     private int gridHeight;
+
+    private int widthSpinnerValue;
+    private int heightSpinnerValue;
     private int hexagonSize;
     private Maze maze = new Maze();
 
@@ -175,5 +178,27 @@ public class MazeAppModel {
         for (ChangeListener listener : listeners) {
             listener.stateChanged(evt);
         }
+    }
+
+    public int getWidthSpinnerValue() {
+        return widthSpinnerValue;
+    }
+
+    public void setWidthSpinnerValue(int widthSpinnerValue) {
+        this.widthSpinnerValue = widthSpinnerValue;
+    }
+
+    public int getHeightSpinnerValue() {
+        return heightSpinnerValue;
+    }
+
+    public void setHeightSpinnerValue(int heightSpinnerValue) {
+        this.heightSpinnerValue = heightSpinnerValue;
+    }
+
+    public void changeMazeSize() {
+        this.gridWidth = this.widthSpinnerValue;
+        this.gridHeight = this.heightSpinnerValue;
+        this.redrawHexagonGrid();
     }
 }
