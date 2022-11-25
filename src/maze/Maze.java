@@ -83,12 +83,11 @@ public class Maze implements Graph {
     }
 
     /**
-     * @param fileName le nom du fichier dans le répertoire /data
+     * @param fileLocation path vers le fichier
      * @return le labyrinthe initialisé par lecture du fichier
      * @throws MazeReadingException
      */
-    public Maze initFromTextFile(String fileName) throws MazeReadingException {
-        String fileLocation = "data/" + fileName + ".txt";
+    public Maze initFromTextFile(String fileLocation) throws MazeReadingException {
         try {
             BufferedReader br = new BufferedReader(new FileReader(fileLocation));
 

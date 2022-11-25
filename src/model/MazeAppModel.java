@@ -9,11 +9,22 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.util.ArrayList;
 
+import static java.lang.Math.min;
+
 public class MazeAppModel {
-    private ArrayList<ChangeListener> listeners = new ArrayList<ChangeListener>();
+    private ChangeListener mazeAppListener;
+    private ChangeListener fileMenuListener;
+
+    private ChangeListener sizePanelListener;
     private int gridWidth;
     private int gridHeight;
-
+    private int appHeight;
+    private int appWidth;
+    private int mazeMinSize;
+    private int mazeMaxWidth;
+    private int mazeMaxHeight;
+    private int mazeDefaultHeight;
+    private int mazeDefaultWidth;
     private int widthSpinnerValue;
     private int heightSpinnerValue;
     private int hexagonSize;
@@ -82,7 +93,7 @@ public class MazeAppModel {
 
         this.maze.printPathInMaze(shortestPaths);
         this.drawCorrectPath();
-        this.stateChanges();
+        this.mazeSateChanged();
     }
 
     private void drawCorrectPath() {
@@ -170,7 +181,7 @@ public class MazeAppModel {
                 if (isInsideHexagon(x, y, maze.getBoxByCoords(i,j).getHexagon().getxCenter(), maze.getBoxByCoords(i,j).getHexagon().getyCenter(), this.hexagonSize)) {
                     System.out.println("Is in : " + i + " " + j);
                     this.changeMazeBoxType(i,j);
-                    this.stateChanges();
+                    this.mazeSateChanged();
                     return;
                 }
             }
@@ -199,19 +210,62 @@ public class MazeAppModel {
 
     public void redrawHexagonGrid() {
         this.resetHexagonGrid();
-        this.stateChanges();
+        this.mazeSateChanged();
     }
 
-    public void addObserver(ChangeListener listener) {
-        listeners.add(listener);
-    }
+    public void initMazeFromFile(String filePath) {
+        try {
+            this.maze.initFromTextFile(filePath);
+            this.gridHeight = this.maze.height;
+            this.gridWidth = this.maze.width;
+            this.hexagonSize = (int) min(0.5*(this.appHeight / this.gridHeight), (1.0/Math.sqrt(3))*(this.appWidth / this.gridWidth));
+            this.mazeMinSize = 2;
+            this.mazeMaxWidth = this.maze.width;
+            this.mazeMaxHeight = this.maze.height;
+            this.mazeDefaultHeight = this.maze.height;
+            this.mazeDefaultWidth = this.maze.width;
 
-    public void stateChanges() {
-        System.out.println("State changes");
-        ChangeEvent evt = new ChangeEvent(this);
-        for (ChangeListener listener : listeners) {
-            listener.stateChanged(evt);
+            // On initialise de manière à placer les hexagones dans le cadre du panel
+            double[] pos = new double[]{hexagonSize,0.5 * Math.sqrt(3) * hexagonSize};
+
+            for(int i=0;i<gridHeight;i++) {
+                pos[1] = 2*hexagonSize*0.75*i + hexagonSize;
+                for(int j=0;j<gridWidth;j++) {
+
+                    // Selon la parité de i (coordonnée x), on décale ou pas la ligne d'hexagones (de 1/2*width) par rapport à la précédente
+                    // Voir https://www.redblobgames.com/grids/hexagons/ pour l'explication géométrique
+                    if (i%2 == 0) {
+                        pos[0] = j*Math.sqrt(3)*hexagonSize+0.5*Math.sqrt(3)*hexagonSize + 0.5 * Math.sqrt(3) *hexagonSize;
+                    } else {
+                        pos[0] = j*Math.sqrt(3)*hexagonSize + 0.5 * Math.sqrt(3) *hexagonSize;
+                    }
+
+                    // On associe à chaque case son hexagone à la bonne position
+                    MazeBox mazeBox = this.maze.getBoxByCoords(j,i);
+                    Hexagon hexagon = new Hexagon(pos[0], pos[1], hexagonSize);
+                    hexagon.setColor(mazeBox.getColor());
+                    mazeBox.setHexagon(hexagon);
+                }
+            }
+            this.sizeConstraintsChanged();
+            this.mazeSateChanged();
+
+        } catch (MazeReadingException e) {
+            this.fileMenuStateChanged();
+            throw new RuntimeException(e);
         }
+    }
+
+    public void mazeSateChanged() {
+        this.mazeAppListener.stateChanged(new ChangeEvent(this));
+    }
+
+    public void fileMenuStateChanged() {
+        this.fileMenuListener.stateChanged(new ChangeEvent(this));
+    }
+
+    public void sizeConstraintsChanged() {
+        this.sizePanelListener.stateChanged(new ChangeEvent(this));
     }
 
     public int getWidthSpinnerValue() {
@@ -234,5 +288,73 @@ public class MazeAppModel {
         this.gridWidth = this.getWidthSpinnerValue();
         this.gridHeight = this.getHeightSpinnerValue();
         this.redrawHexagonGrid();
+    }
+
+    public void setAppHeight(int appHeight) {
+        this.appHeight = appHeight;
+    }
+
+    public void setAppWidth(int appWidth) {
+        this.appWidth = appWidth;
+    }
+
+    public int getAppHeight() {
+        return this.appHeight;
+    }
+
+    public int getAppWidth() {
+        return this.appWidth;
+    }
+
+    public void setMazeMinSize(int mazeMinSize) {
+        this.mazeMinSize = mazeMinSize;
+    }
+
+    public void setMazeMaxWidth(int mazeMaxWidth) {
+        this.mazeMaxWidth = mazeMaxWidth;
+    }
+
+    public void setMazeMaxHeight(int mazeMaxHeight) {
+        this.mazeMaxHeight = mazeMaxHeight;
+    }
+
+    public void setMazeAppListener(ChangeListener mazeAppListener) {
+        this.mazeAppListener = mazeAppListener;
+    }
+
+    public void setFileMenuListener(ChangeListener fileMenuListener) {
+        this.fileMenuListener = fileMenuListener;
+    }
+
+    public void setSizePanelListener(ChangeListener sizePanelListener) {
+        this.sizePanelListener = sizePanelListener;
+    }
+
+    public int getMazeMinSize() {
+        return mazeMinSize;
+    }
+
+    public int getMazeMaxWidth() {
+        return mazeMaxWidth;
+    }
+
+    public int getMazeMaxHeight() {
+        return mazeMaxHeight;
+    }
+
+    public int getMazeDefaultHeight() {
+        return mazeDefaultHeight;
+    }
+
+    public void setMazeDefaultHeight(int mazeDefaultHeight) {
+        this.mazeDefaultHeight = mazeDefaultHeight;
+    }
+
+    public int getMazeDefaultWidth() {
+        return mazeDefaultWidth;
+    }
+
+    public void setMazeDefaultWidth(int mazeDefaultWidth) {
+        this.mazeDefaultWidth = mazeDefaultWidth;
     }
 }

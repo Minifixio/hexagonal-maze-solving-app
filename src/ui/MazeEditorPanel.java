@@ -18,7 +18,7 @@ public class MazeEditorPanel extends JPanel {
         addMouseListener(mazeEditorPanelMouseListener);
         addMouseMotionListener(mazeEditorPanelMouseListener);
 
-        setPreferredSize(new Dimension(mazeApp.getAppWidth(),mazeApp.getAppHeight()));
+        setPreferredSize(new Dimension(mazeApp.getMazeAppModel().getAppWidth(),mazeApp.getMazeAppModel().getAppHeight()));
     }
 
     protected void paintComponent(Graphics g) {
