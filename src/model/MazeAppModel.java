@@ -251,8 +251,8 @@ public class MazeAppModel {
             this.mazeSateChanged();
 
         } catch (MazeReadingException e) {
+            this.resetHexagonGrid();
             this.fileMenuStateChanged();
-            throw new RuntimeException(e);
         }
     }
 
