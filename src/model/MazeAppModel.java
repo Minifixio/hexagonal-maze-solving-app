@@ -84,6 +84,9 @@ public class MazeAppModel {
         }
     }
 
+    /**
+     * Trouve le chemin optimal et le trace sur l'interface
+     */
     public void solveMaze() {
         // On supprime le chemin optimal courant (si il existe)
         this.maze.resetBoxesInPath();
@@ -96,6 +99,9 @@ public class MazeAppModel {
         this.mazeSateChanged();
     }
 
+    /**
+     * Colorie les cases du chemin optimal
+     */
     private void drawCorrectPath() {
         for(int i=0;i<gridWidth;i++) {
             for(int j=0;j<gridHeight;j++) {
@@ -208,16 +214,23 @@ public class MazeAppModel {
         }
     }
 
+    /**
+     * Redessine la grille sur le Panel
+     */
     public void redrawHexagonGrid() {
         this.resetHexagonGrid();
         this.mazeSateChanged();
     }
 
-    public void saveToTextFile(String filePath) throws MazeWritingException {
+    /**
+     * @param filePath le chemin vers le fichier .txt sur lequel on sauvegarde le Labyrinthe
+     */
+    public void saveToTextFile(String filePath) {
         try {
             this.maze.saveToTextFile(filePath);
         } catch (MazeWritingException e) {
-
+            this.resetHexagonGrid();
+            this.fileMenuStateChanged();
         }
     }
 

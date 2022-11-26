@@ -20,11 +20,7 @@ public class SaveFileMenuItem extends JMenuItem implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String filePath = this.fileSaveChooser.openFileSave("Choisir le fichier destination");
         if(filePath != null) {
-            try {
-                this.mazeApp.getMazeAppModel().saveToTextFile(filePath);
-            } catch (MazeWritingException ex) {
-                throw new RuntimeException(ex);
-            }
+            this.mazeApp.getMazeAppModel().saveToTextFile(filePath);
         }
 
     }

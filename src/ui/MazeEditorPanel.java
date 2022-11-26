@@ -27,7 +27,6 @@ public class MazeEditorPanel extends JPanel {
     }
 
     public void notifyForUpdates() {
-        System.out.println("Redrawing MazeEditorPanel");
         this.revalidate();
         this.repaint();
     }

@@ -25,6 +25,6 @@ public class FileMenu extends JMenu implements ChangeListener {
 
     @Override
     public void stateChanged(ChangeEvent e) {
-        showMessageDialog(null, "Erreur lors de l'ouverture du fichier. Vérifiez qu'il est au bon format.");
+        showMessageDialog(null, "Erreur : veuillez vérifier que l'emplacement/format du fichier est correct");
     }
 }
