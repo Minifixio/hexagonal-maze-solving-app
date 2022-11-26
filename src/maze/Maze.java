@@ -5,10 +5,7 @@ import dijkstra.ShortestPaths;
 import dijkstra.Vertex;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -154,6 +151,24 @@ public class Maze implements Graph {
             }
         }
         return this;
+    }
+
+    public void saveToTextFile(String filePath) throws MazeWritingException {
+        try {
+            System.out.println("Saving to file : " + filePath);
+            PrintWriter pw = new PrintWriter(filePath);
+            for (int i=0; i<this.width; i++) {
+                String line = "";
+                for (int j=0;j<this.height; j++) {
+                    line += this.getBoxByCoords(i,j).getType();
+                }
+                pw.println(line);
+            }
+            pw.close();
+        } catch (FileNotFoundException e) {
+            throw new MazeWritingException(filePath, "Impossible d'ouvrir le fichier");
+        }
+
     }
 
     /**

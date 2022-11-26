@@ -213,12 +213,23 @@ public class MazeAppModel {
         this.mazeSateChanged();
     }
 
+    public void saveToTextFile(String filePath) throws MazeWritingException {
+        try {
+            this.maze.saveToTextFile(filePath);
+        } catch (MazeWritingException e) {
+
+        }
+    }
+
+    /**
+     * @param filePath le chemin vers le fichier .txt à ouvrir
+     */
     public void initMazeFromFile(String filePath) {
         try {
             this.maze.initFromTextFile(filePath);
             this.gridHeight = this.maze.height;
             this.gridWidth = this.maze.width;
-            this.hexagonSize = (int) min(0.5*(this.appHeight / this.gridHeight), (1.0/Math.sqrt(3))*(this.appWidth / this.gridWidth));
+            this.hexagonSize = (int) min(0.45*(this.appHeight / this.gridHeight), (1.0/Math.sqrt(3))*(this.appWidth / this.gridWidth));
             this.mazeMinSize = 2;
             this.mazeMaxWidth = this.maze.width;
             this.mazeMaxHeight = this.maze.height;
