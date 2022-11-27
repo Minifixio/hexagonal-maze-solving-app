@@ -36,7 +36,6 @@ public class Maze implements Graph {
                 this.boxes[x][y] = new EmptyMazeBox(this, x, y);
                 return true;
             case 'A':
-                ArrivalMazeBox arrival = new ArrivalMazeBox(this, x, y);
                 this.boxes[x][y] = new ArrivalMazeBox(this, x, y);
                 this.arrivalMazeBox = (ArrivalMazeBox) this.boxes[x][y];
                 return true;
@@ -82,10 +81,9 @@ public class Maze implements Graph {
 
     /**
      * @param fileLocation path vers le fichier
-     * @return le labyrinthe initialisé par lecture du fichier
-     * @throws MazeReadingException
+     * @throws MazeReadingException si il y a une erreur lors de la lecture
      */
-    public Maze initFromTextFile(String fileLocation) throws MazeReadingException {
+    public void initFromTextFile(String fileLocation) throws MazeReadingException {
         try {
             BufferedReader br = new BufferedReader(new FileReader(fileLocation));
 
@@ -121,7 +119,6 @@ public class Maze implements Graph {
                     lineCount += 1;
                 }
                 br.close();
-                return this;
 
             } catch (IOException e) {
                 throw new MazeReadingException(fileLocation, 0, "Initialisation de la taille du labyrinthe");
@@ -135,9 +132,8 @@ public class Maze implements Graph {
     /**
      * @param width largeur du labyrinthe
      * @param height hauteur du labyrinthe
-     * @return le labyrinthe de taille (width x height) initialisé avec seulement des EmptyMazeBox
      */
-    public Maze initEmptyMaze(int width, int height) {
+    public void initEmptyMaze(int width, int height) {
         this.width = width;
         this.height = height;
         this.boxes = new MazeBox[this.width][this.height];
@@ -151,7 +147,6 @@ public class Maze implements Graph {
                 this.setBoxByCoords(i,j, new EmptyMazeBox(this, i, j));
             }
         }
-        return this;
     }
 
     /**
@@ -191,7 +186,7 @@ public class Maze implements Graph {
 
     /**
      * @param filePath le chemin vers lequel on écrit le fichier
-     * @throws MazeWritingException
+     * @throws MazeWritingException si il y a une erreur lors de l'écriture du fichier
      */
     public void saveToTextFile(String filePath) throws MazeWritingException {
         try {
@@ -212,8 +207,8 @@ public class Maze implements Graph {
     }
 
     /**
-     * @param x
-     * @param y
+     * @param x la coordonée x de la MazeBox
+     * @param y la coordonée y de la MazeBox
      * @return la MazeBox à la position (x,y)
      */
     public MazeBox getBoxByCoords(int x, int y) {
@@ -221,8 +216,8 @@ public class Maze implements Graph {
     }
 
     /**
-     * @param x
-     * @param y
+     * @param x la coordonée x de la MazeBox
+     * @param y la coordonée y de la MazeBox
      * @param box la MazeBox à attribuer en (x,y)
      */
     public void setBoxByCoords(int x, int y, MazeBox box) {
@@ -281,7 +276,7 @@ public class Maze implements Graph {
         MazeBox predecessor = (MazeBox) shortestPaths.getPredecessor(vertex);
         String pathToDeparture = "";
         while (predecessor != departureMazeBox) {
-            pathToDeparture += (" -> Box(" + Integer.toString(predecessor.x) + "," + Integer.toString(predecessor.y) + ")");
+            pathToDeparture += (" -> Box(" + predecessor.x + "," + predecessor.y + ")");
             MazeBox predecessorTemp = (MazeBox) shortestPaths.getPredecessor(predecessor);
             predecessor = predecessorTemp;
         }
