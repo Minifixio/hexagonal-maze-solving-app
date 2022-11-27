@@ -12,10 +12,22 @@ import java.util.ArrayList;
 import static java.lang.Math.min;
 
 public class MazeAppModel {
+    /**
+     * Gère les changement sur le labyrinthe
+     */
     private ChangeListener mazeAppListener;
+    /**
+     * Gère les actions sur le menu déroulant
+     */
     private ChangeListener fileMenuListener;
-
+    /**
+     * Change les actions de changement de taille
+     */
     private ChangeListener sizePanelListener;
+    /**
+     * Gère les actions de recherche du chemin optimal
+     */
+    private ChangeListener pathFoundListener;
     private int gridWidth;
     private int gridHeight;
     private int appHeight;
@@ -98,9 +110,14 @@ public class MazeAppModel {
         MazeDistance mazeDistance = new MazeDistance();
         ShortestPaths shortestPaths = Dijkstra.dijkstra(maze, maze.getStartVertex(), maze.getEndVertex(), mazeDistance);
 
-        this.maze.printPathInMaze(shortestPaths);
-        this.drawCorrectPath();
-        this.mazeSateChanged();
+        boolean pathFound = this.maze.setBoxesInPath(shortestPaths);
+        if (pathFound) {
+            this.drawCorrectPath();
+            this.mazeSateChanged();
+        } else {
+            this.pathFoundListener.stateChanged(new ChangeEvent(this));
+        }
+
     }
 
     /**
@@ -393,5 +410,13 @@ public class MazeAppModel {
 
     public void setMazeDefaultWidth(int mazeDefaultWidth) {
         this.mazeDefaultWidth = mazeDefaultWidth;
+    }
+
+    public ChangeListener getPathFoundListener() {
+        return pathFoundListener;
+    }
+
+    public void setPathFoundListener(ChangeListener pathFoundListener) {
+        this.pathFoundListener = pathFoundListener;
     }
 }

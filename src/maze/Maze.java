@@ -287,16 +287,20 @@ public class Maze implements Graph {
      * Marque les chemins appartenant au chemin optimal de l'origine au sommet de fin
      * @param shortestPaths l'arborescence des plus courts chemins
      */
-    public void setBoxesInPath(@NotNull ShortestPaths shortestPaths) {
+    public boolean setBoxesInPath(@NotNull ShortestPaths shortestPaths) {
         // On remonte succesivement les predecesseurs depuis arrivalMazeBox
         MazeBox predecessor = (MazeBox) shortestPaths.getPredecessor(this.getEndVertex());
 
         // On s'arrête quand on tombe sur la case de départ
         while (predecessor != departureMazeBox) {
+            if (predecessor == null) {
+                return false;
+            }
             predecessor.isInPath = true;
             MazeBox predecessorTemp = (MazeBox) shortestPaths.getPredecessor(predecessor);
             predecessor = predecessorTemp;
         }
+        return true;
     }
 
     /**
