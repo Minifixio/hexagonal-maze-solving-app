@@ -21,11 +21,13 @@ public class SizePickerPanel extends JPanel implements ChangeListener {
         this.mazeApp = mazeApp;
         setPreferredSize(new Dimension(50,50));
 
-        setLayout(new GridLayout(0,3));
+        setLayout(new GridLayout(2,0));
 
-        //add(sizeLabel = new SizeLabel(mazeApp));
-        add(sizeWidthSpinner = new SizeWidthSpinner(mazeApp));
-        add(sizeHeightSpinner = new SizeHeightSpinner(mazeApp));
+        JPanel sizeButtonsPanel = new JPanel();
+        sizeButtonsPanel.setLayout(new GridLayout(0,2));
+        sizeButtonsPanel.add(sizeWidthSpinner = new SizeWidthSpinner(mazeApp));
+        sizeButtonsPanel.add(sizeHeightSpinner = new SizeHeightSpinner(mazeApp));
+        add(sizeButtonsPanel);
         add(sizeValidationButton = new SizeValidationButton(mazeApp));
 
         setAlignmentX(Component.CENTER_ALIGNMENT);

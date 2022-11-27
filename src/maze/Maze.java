@@ -8,6 +8,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Maze implements Graph {
 
@@ -153,6 +154,45 @@ public class Maze implements Graph {
         return this;
     }
 
+    /**
+     * Permet de générer un laybrinthe aléatoire
+     */
+    public void initRandomMaze() {
+        for (int i=0; i<width; i++) {
+            for (int j=0;j<height; j++) {
+                double n = Math.random();
+                if (n<0.5) {
+                    this.setBoxByCoords(i,j, new EmptyMazeBox(this, i, j));
+                } else {
+                    this.setBoxByCoords(i,j, new WallMazeBox(this, i, j));
+                }
+            }
+        }
+
+        Random random = new Random();
+        int randomXArrival = random.nextInt(this.width);
+        int randomYArrival = random.nextInt(this.width);
+        int randomXDeparture= random.nextInt(this.width);
+        int randomYDeparture = random.nextInt(this.width);
+
+        while(randomXDeparture == randomXArrival && randomYDeparture == randomYArrival) {
+            randomXDeparture= random.nextInt(this.width);
+            randomYDeparture = random.nextInt(this.width);
+        }
+
+        ArrivalMazeBox arrival = new ArrivalMazeBox(this, randomXArrival, randomYArrival);
+        this.setBoxByCoords(randomXArrival, randomYArrival, arrival);
+        this.setEndVertex(arrival);
+
+        DepartureMazeBox departure = new DepartureMazeBox(this, randomXDeparture, randomYDeparture);
+        this.setBoxByCoords(randomXDeparture, randomYDeparture, departure);
+        this.setStartVertex(departure);
+    }
+
+    /**
+     * @param filePath le chemin vers lequel on écrit le fichier
+     * @throws MazeWritingException
+     */
     public void saveToTextFile(String filePath) throws MazeWritingException {
         try {
             System.out.println("Saving to file : " + filePath);

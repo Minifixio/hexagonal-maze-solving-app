@@ -39,13 +39,9 @@ public class MazeAppModel {
     }
 
     /**
-     * Ré-initialise la grille en générant une grille de cases vides de la taille adéquate
+     * Assigne aux différentes cases un hexagone à la bonne place sur la grille
      */
-    public void resetHexagonGrid() {
-        System.out.println("Reset grid with size : width "  + this.gridWidth + " height " + this.gridHeight);
-
-        this.maze.initEmptyMaze(gridWidth, gridHeight);
-
+    public void assignHexagons() {
         // On initialise de manière à placer les hexagones dans le cadre du panel
         double[] pos = new double[]{hexagonSize,hexagonSize};
 
@@ -63,12 +59,20 @@ public class MazeAppModel {
 
                 // On associe à chaque case son hexagone à la bonne position
                 Hexagon hexagon = new Hexagon(pos[0], pos[1], hexagonSize);
-                EmptyMazeBox emptyMazeBox = new EmptyMazeBox(maze,j,i);
-                emptyMazeBox.setHexagon(hexagon);
-
-                maze.setBoxByCoords(j, i, emptyMazeBox);
+                MazeBox mazeBox = this.maze.getBoxByCoords(j,i);
+                mazeBox.setHexagon(hexagon);
             }
         }
+    }
+
+    /**
+     * Ré-initialise la grille en générant une grille de cases vides de la taille adéquate
+     */
+    public void resetHexagonGrid() {
+        System.out.println("Reset grid with size : width "  + this.gridWidth + " height " + this.gridHeight);
+
+        this.maze.initEmptyMaze(gridWidth, gridHeight);
+        this.assignHexagons();
     }
 
     /**
@@ -219,6 +223,15 @@ public class MazeAppModel {
      */
     public void redrawHexagonGrid() {
         this.resetHexagonGrid();
+        this.mazeSateChanged();
+    }
+
+    /**
+     * Dessine un labyrinthe aléatoire
+     */
+    public void drawRandomHexagon() {
+        this.maze.initRandomMaze();
+        this.assignHexagons();
         this.mazeSateChanged();
     }
 
