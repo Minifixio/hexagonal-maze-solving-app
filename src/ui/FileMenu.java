@@ -7,7 +7,6 @@ import javax.swing.event.ChangeListener;
 import static javax.swing.JOptionPane.showMessageDialog;
 
 public class FileMenu extends JMenu implements ChangeListener {
-    private final QuitMenuItem quitMenuItem;
     private final LoadFileMenuItem loadFileMenuItem;
     private final SaveFileMenuItem saveFileMenuItem;
 
@@ -16,7 +15,6 @@ public class FileMenu extends JMenu implements ChangeListener {
 
     public FileMenu(MazeApp mazeApp) {
         super("Fichier");
-        add(quitMenuItem = new QuitMenuItem(mazeApp));
         add(loadFileMenuItem = new LoadFileMenuItem(mazeApp));
         add(saveFileMenuItem = new SaveFileMenuItem(mazeApp));
         this.mazeApp = mazeApp;
