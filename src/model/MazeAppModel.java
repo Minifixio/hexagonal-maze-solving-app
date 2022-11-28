@@ -284,28 +284,7 @@ public class MazeAppModel {
             this.mazeDefaultHeight = this.maze.height;
             this.mazeDefaultWidth = this.maze.width;
 
-            // On initialise de manière à placer les hexagones dans le cadre du panel
-            double[] pos = new double[]{hexagonSize,0.5 * Math.sqrt(3) * hexagonSize};
-
-            for(int i=0;i<gridHeight;i++) {
-                pos[1] = 2*hexagonSize*0.75*i + hexagonSize;
-                for(int j=0;j<gridWidth;j++) {
-
-                    // Selon la parité de i (coordonnée x), on décale ou pas la ligne d'hexagones (de 1/2*width) par rapport à la précédente
-                    // Voir https://www.redblobgames.com/grids/hexagons/ pour l'explication géométrique
-                    if (i%2 == 0) {
-                        pos[0] = j*Math.sqrt(3)*hexagonSize+0.5*Math.sqrt(3)*hexagonSize + 0.5 * Math.sqrt(3) *hexagonSize;
-                    } else {
-                        pos[0] = j*Math.sqrt(3)*hexagonSize + 0.5 * Math.sqrt(3) *hexagonSize;
-                    }
-
-                    // On associe à chaque case son hexagone à la bonne position
-                    MazeBox mazeBox = this.maze.getBoxByCoords(j,i);
-                    Hexagon hexagon = new Hexagon(pos[0], pos[1], hexagonSize);
-                    hexagon.setColor(mazeBox.getColor());
-                    mazeBox.setHexagon(hexagon);
-                }
-            }
+            this.assignHexagons();
             this.sizeConstraintsChanged();
             this.mazeSateChanged();
 
