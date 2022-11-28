@@ -3,7 +3,12 @@ package maze;
 import dijkstra.Vertex;
 import model.Hexagon;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +36,9 @@ public class MazeBox implements Vertex {
      * 'A' -> ArrivalMazeBox
      */
     private char type;
+
+    public Color color;
+    public TexturePaint texturePaint;
 
     public MazeBox(Maze maze, int x, int y, char type) {
         this.x = x;
@@ -128,6 +136,7 @@ public class MazeBox implements Vertex {
     public void setHexagon(Hexagon hexagon) {
         this.hexagon = hexagon;
         this.hexagon.setColor(this.getColor());
+        this.hexagon.setTexturePaint(this.texturePaint);
     }
 
     public void setHexagonColor(Color color) {
@@ -147,18 +156,27 @@ public class MazeBox implements Vertex {
      * 'A' -> ArrivalMazeBox -> RED
      */
     public Color getColor() {
-        switch (this.type) {
-            case 'W':
-                return Color.DARK_GRAY;
-            case 'E':
-                return Color.LIGHT_GRAY;
-            case 'D':
-                return Color.YELLOW;
-            case 'A':
-                return Color.RED;
-            default:
-                return Color.DARK_GRAY;
+        return this.color;
+    }
+
+    public TexturePaint getPaint() {
+        return this.texturePaint;
+    }
+
+    public TexturePaint initTexturePaint(String imgName) {
+        File root = null;
+        try {
+            root = new File(Thread.currentThread().getContextClassLoader().getResource("").toURI());
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
         }
+        BufferedImage myImage = null;
+        try {
+            myImage = ImageIO.read(new File(root, "assets/" + imgName));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return new TexturePaint(myImage, new Rectangle(this.x, this.y, 50, 50));
     }
 
     public void setDefaultColor() {

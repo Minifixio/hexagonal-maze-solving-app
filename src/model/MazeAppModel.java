@@ -42,10 +42,12 @@ public class MazeAppModel {
     private int hexagonSize;
     private Maze maze = new Maze();
 
-    public MazeAppModel(int gridWidth, int gridHeight, int hexagonSize) {
+    public MazeAppModel(int gridWidth, int gridHeight, int hexagonSize, int appWidth, int appHeight) {
         this.gridWidth = gridWidth;
         this.gridHeight = gridHeight;
         this.hexagonSize = hexagonSize;
+        this.appWidth = appWidth;
+        this.appHeight = appHeight;
         this.maze.initEmptyMaze(gridWidth, gridHeight);
         this.resetHexagonGrid();
     }
@@ -55,18 +57,21 @@ public class MazeAppModel {
      */
     public void assignHexagons() {
         // On initialise de manière à placer les hexagones dans le cadre du panel
-        double[] pos = new double[]{hexagonSize,hexagonSize};
+        double startXPos = (this.appWidth - Math.sqrt(3)*hexagonSize*this.gridWidth)/2;
+        double startYPos = (this.appHeight - 2*hexagonSize*this.gridHeight)/2;
+        System.out.println(startXPos + " "  + startYPos);
+        double[] pos = new double[]{startXPos,startYPos};
 
         for(int i=0;i<gridHeight;i++) {
-            pos[1] = 2*hexagonSize*0.75*i + hexagonSize;
+            pos[1] = 2*hexagonSize*0.75*i + startYPos;
             for(int j=0;j<gridWidth;j++) {
 
                 // Selon la parité de i (coordonnée x), on décale ou pas la ligne d'hexagones (de 1/2*width) par rapport à la précédente
                 // Voir https://www.redblobgames.com/grids/hexagons/ pour l'explication géométrique
                 if (i%2 == 0) {
-                    pos[0] = j*Math.sqrt(3)*hexagonSize+0.5*Math.sqrt(3)*hexagonSize + hexagonSize;
+                    pos[0] = j*Math.sqrt(3)*hexagonSize+0.5*Math.sqrt(3)*hexagonSize + startXPos;
                 } else {
-                    pos[0] = j*Math.sqrt(3)*hexagonSize + hexagonSize;
+                    pos[0] = j*Math.sqrt(3)*hexagonSize + startXPos;
                 }
 
                 // On associe à chaque case son hexagone à la bonne position

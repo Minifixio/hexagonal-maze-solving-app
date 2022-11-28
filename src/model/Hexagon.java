@@ -1,11 +1,17 @@
 package model;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.Path2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
 
 public class Hexagon extends Path2D.Float {
 
     private Color color;
+    private TexturePaint texturePaint;
     private double xCenter;
     private double yCenter;
 
@@ -28,7 +34,6 @@ public class Hexagon extends Path2D.Float {
         this.lineTo(xCenter, yCenter-0.5*height);
         this.closePath();
 
-        this.color = color;
     }
 
     public void setColor(Color color) {
@@ -37,7 +42,8 @@ public class Hexagon extends Path2D.Float {
 
     public final void paint(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
-        g2.setPaint(this.color);
+        //g2.setPaint(this.color);
+        g2.setPaint(this.texturePaint);
         g2.fill(this);
         g2.draw(this);
     }
@@ -48,5 +54,9 @@ public class Hexagon extends Path2D.Float {
 
     public double getxCenter() {
         return xCenter;
+    }
+
+    public void setTexturePaint(TexturePaint texturePaint) {
+        this.texturePaint = texturePaint;
     }
 }

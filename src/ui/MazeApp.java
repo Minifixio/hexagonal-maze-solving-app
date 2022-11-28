@@ -17,9 +17,7 @@ public class MazeApp extends JFrame implements ChangeListener {
         int mazeMaxWidth = (int) (appWidth/(Math.sqrt(3)*hexagonSize)) - 1;
         int mazeMaxHeight = (appHeight/(2*hexagonSize)) - 1;
 
-        this.mazeAppModel = new MazeAppModel(mazeDefaultWidth, mazeDefaultHeight, hexagonSize);
-        this.mazeAppModel.setAppHeight(appHeight);
-        this.mazeAppModel.setAppWidth(appWidth);
+        this.mazeAppModel = new MazeAppModel(mazeDefaultWidth, mazeDefaultHeight, hexagonSize, appWidth, appHeight);
         this.mazeAppModel.setMazeMaxWidth(mazeMaxWidth);
         this.mazeAppModel.setMazeMaxHeight(mazeMaxHeight);
         this.mazeAppModel.setMazeMinSize(mazeMinSize);
