@@ -1,9 +1,6 @@
 package ui;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.*;
 
 public class MazeEditorPanelMouseListener extends MouseAdapter implements MouseListener, MouseMotionListener {
 
@@ -17,4 +14,5 @@ public class MazeEditorPanelMouseListener extends MouseAdapter implements MouseL
     public final void mousePressed(MouseEvent e) {
         this.mazeApp.getMazeAppModel().changeMazeBoxFromClick(e.getX(), e.getY());
     }
+    
 }

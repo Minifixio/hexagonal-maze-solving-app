@@ -37,12 +37,16 @@ public class MazeEditorPanel extends JPanel {
         }
 
         setPreferredSize(new Dimension(mazeApp.getMazeAppModel().getAppWidth(),mazeApp.getMazeAppModel().getAppHeight()));
+
     }
 
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(this.background, 0, 0, null);
         mazeApp.getMazeAppModel().refreshHexagonGrid(g);
+        ImageIcon icon = new ImageIcon("assets/flag1.png");
+        icon.paintIcon(this, g, 0, 0);
+
     }
 
     public void notifyForUpdates() {

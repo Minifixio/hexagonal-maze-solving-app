@@ -4,9 +4,14 @@ import dijkstra.Dijkstra;
 import dijkstra.ShortestPaths;
 import maze.*;
 
+import javax.imageio.ImageIO;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import static java.lang.Math.min;
@@ -102,6 +107,23 @@ public class MazeAppModel {
                 Hexagon h = maze.getBoxByCoords(i,j).getHexagon();
                 h.paint(g);
             }
+        }
+
+        this.paintArrivalFlag(g);
+        this.paintDepartureTraveller(g);
+    }
+
+    public void paintArrivalFlag(Graphics g) {
+        if (this.maze.getEndVertex() != null) {
+            ArrivalFlag arrivalFlag = new ArrivalFlag((int) this.maze.getEndVertex().getHexagon().getxCenter() - this.hexagonSize, (int) this.maze.getEndVertex().getHexagon().getyCenter()-2*this.hexagonSize, this.hexagonSize*3);
+            arrivalFlag.paint(g);
+        }
+    }
+
+    public void paintDepartureTraveller(Graphics g) {
+        if (this.maze.getStartVertex() != null) {
+            DepartureTraveller departureTraveller = new DepartureTraveller((int) this.maze.getStartVertex().getHexagon().getxCenter() - this.hexagonSize, (int) this.maze.getStartVertex().getHexagon().getyCenter()-2*this.hexagonSize*2, this.hexagonSize*2);
+            departureTraveller.paint(g);
         }
     }
 
@@ -284,6 +306,9 @@ public class MazeAppModel {
             this.mazeMaxHeight = this.maze.height;
             this.mazeDefaultHeight = this.maze.height;
             this.mazeDefaultWidth = this.maze.width;
+
+            // Pour enlever le drapeau et traveller
+            this.mazeSateChanged();
 
             this.assignHexagons();
             this.sizeConstraintsChanged();

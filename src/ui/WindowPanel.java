@@ -18,6 +18,8 @@ public class WindowPanel extends JPanel implements ChangeListener {
         mazeApp.getMazeAppModel().setPathFoundListener(this);
         add(mazeEditorPanel = new MazeEditorPanel(mazeApp), BorderLayout.CENTER);
         add(infoPanel = new InfoPanel(mazeApp), BorderLayout.EAST);
+
+
     }
 
     public void notifyForUpdates() {

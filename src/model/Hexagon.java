@@ -1,6 +1,7 @@
 package model;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Path2D;
 import java.awt.image.BufferedImage;
@@ -42,7 +43,6 @@ public class Hexagon extends Path2D.Float {
 
     public final void paint(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
-        //g2.setPaint(this.color);
         g2.setPaint(this.texturePaint);
         g2.fill(this);
         g2.draw(this);
@@ -59,4 +59,5 @@ public class Hexagon extends Path2D.Float {
     public void setTexturePaint(TexturePaint texturePaint) {
         this.texturePaint = texturePaint;
     }
+
 }

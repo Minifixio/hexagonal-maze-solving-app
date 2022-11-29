@@ -38,7 +38,7 @@ public class MazeBox implements Vertex {
     private char type;
 
     public Color color;
-    public TexturePaint texturePaint;
+    private TexturePaint texturePaint;
 
     public MazeBox(Maze maze, int x, int y, char type) {
         this.x = x;
@@ -191,4 +191,5 @@ public class MazeBox implements Vertex {
     public char getType() {
         return this.type;
     }
+
 }
