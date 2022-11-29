@@ -135,6 +135,7 @@ public class MazeAppModel {
                 // On colore les cases du chemin optimal différement
                 if (box.isInPath) {
                     box.setHexagonColor(Color.MAGENTA);
+                    box.setHexagonTexturePaint("path1.png");
                 }
             }
         }

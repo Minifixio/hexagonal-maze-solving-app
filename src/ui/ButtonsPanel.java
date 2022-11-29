@@ -11,7 +11,7 @@ public class ButtonsPanel extends JPanel {
 
 
     public ButtonsPanel(MazeApp mazeApp) {
-        setLayout(new GridLayout(1,4));
+        setLayout(new GridLayout(4,1));
 
         add(sizePickerPanel = new SizePickerPanel(mazeApp));
         add(resetButton = new ResetButton(mazeApp));

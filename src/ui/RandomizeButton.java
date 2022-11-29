@@ -1,6 +1,7 @@
 package ui;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -11,7 +12,7 @@ public class RandomizeButton extends JButton implements ActionListener {
     private final MazeApp mazeApp;
 
     public RandomizeButton(MazeApp mazeApp) {
-        super("Générer un labyrinthe aléatoire");
+        super("Labyrinthe aléatoire");
         this.mazeApp = mazeApp;
         addActionListener(this);
     }
