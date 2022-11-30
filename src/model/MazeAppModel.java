@@ -122,7 +122,7 @@ public class MazeAppModel {
 
     public void paintDepartureTraveller(Graphics g) {
         if (this.maze.getStartVertex() != null) {
-            DepartureTraveller departureTraveller = new DepartureTraveller((int) this.maze.getStartVertex().getHexagon().getxCenter() - this.hexagonSize, (int) this.maze.getStartVertex().getHexagon().getyCenter()-2*this.hexagonSize*2, this.hexagonSize*2);
+            DepartureTraveller departureTraveller = new DepartureTraveller((int) this.maze.getStartVertex().getHexagon().getxCenter() - this.hexagonSize, (int) this.maze.getStartVertex().getHexagon().getyCenter()-3*this.hexagonSize,  2*this.hexagonSize);
             departureTraveller.paint(g);
         }
     }
