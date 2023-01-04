@@ -11,6 +11,6 @@ public class ArrivalMazeBox extends MazeBox {
     public ArrivalMazeBox(Maze maze, int x, int y) {
         super(maze, x, y, 'A');
         this.color = Color.RED;
-        this.setTexturePaint("path1.png");
+        this.setDefaultTexturePaint("path1.png");
     }
 }

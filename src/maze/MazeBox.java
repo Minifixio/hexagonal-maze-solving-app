@@ -39,6 +39,7 @@ public class MazeBox implements Vertex {
 
     public Color color;
     private TexturePaint texturePaint;
+    private TexturePaint defaultTexturePaint;
 
     public MazeBox(Maze maze, int x, int y, char type) {
         this.x = x;
@@ -184,6 +185,10 @@ public class MazeBox implements Vertex {
         this.hexagon.setTexturePaint(this.texturePaint);
     }
 
+    public void setHexagonDefaultTexturePaint() {
+        this.hexagon.setTexturePaint(this.defaultTexturePaint);
+    }
+
     public void setDefaultColor() {
         this.hexagon.setColor(this.getColor());
     }
@@ -192,4 +197,20 @@ public class MazeBox implements Vertex {
         return this.type;
     }
 
+    public void setDefaultTexturePaint(String imgName) {
+        File root = null;
+        try {
+            root = new File(Thread.currentThread().getContextClassLoader().getResource("").toURI());
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+        BufferedImage myImage = null;
+        try {
+            myImage = ImageIO.read(new File(root, "assets/" + imgName));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        this.defaultTexturePaint = new TexturePaint(myImage, new Rectangle(this.x, this.y, 50, 50));
+        this.texturePaint = this.defaultTexturePaint;
+    }
 }

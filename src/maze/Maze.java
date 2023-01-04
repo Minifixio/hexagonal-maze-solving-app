@@ -246,6 +246,7 @@ public class Maze implements Graph {
             for(int j=0; j<this.height; j++) {
                 this.getBoxByCoords(i,j).isInPath = false;
                 this.getBoxByCoords(i,j).setDefaultColor();
+                this.getBoxByCoords(i,j).setHexagonDefaultTexturePaint();
             }
         }
     }
