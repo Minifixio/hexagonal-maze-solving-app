@@ -34,7 +34,6 @@ public class Hexagon extends Path2D.Float {
         this.lineTo(xCenter-0.5*width, yCenter-0.25*height);
         this.lineTo(xCenter, yCenter-0.5*height);
         this.closePath();
-
     }
 
     public void setColor(Color color) {

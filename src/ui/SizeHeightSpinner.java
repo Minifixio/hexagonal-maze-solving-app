@@ -3,6 +3,7 @@ package ui;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import java.awt.*;
 
 /**
  * Spinner permettent de choisir la valeur entière de la hauteur du labyrinthe
@@ -16,6 +17,9 @@ public class SizeHeightSpinner extends JSpinner implements ChangeListener {
         this.mazeApp = mazeApp;
         this.mazeApp.getMazeAppModel().setHeightSpinnerValue((int) this.getValue());
         addChangeListener(this);
+
+        getEditor().getComponent(0).setBackground(Color.GRAY);
+        setFont(new Font("Palatino", Font.BOLD, 14));
     }
 
     @Override
