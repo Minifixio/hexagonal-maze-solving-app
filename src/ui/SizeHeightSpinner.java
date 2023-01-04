@@ -12,6 +12,7 @@ public class SizeHeightSpinner extends JSpinner implements ChangeListener {
 
     public SizeHeightSpinner(MazeApp mazeApp) {
         super(new SpinnerNumberModel(mazeApp.getMazeAppModel().getMazeDefaultHeight(), mazeApp.getMazeAppModel().getMazeMinSize(), mazeApp.getMazeAppModel().getMazeMaxHeight(), 1));
+        setOpaque(false);
         this.mazeApp = mazeApp;
         this.mazeApp.getMazeAppModel().setHeightSpinnerValue((int) this.getValue());
         addChangeListener(this);

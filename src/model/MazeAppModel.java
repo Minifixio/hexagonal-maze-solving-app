@@ -251,7 +251,7 @@ public class MazeAppModel {
      * @param xCenter
      * @param yCenter
      * @param hexagonSize
-     * @return true ou false selon si le point est dans l'exagone de centre (xCenter, yCenter)
+     * @return true ou false selon si le point est dans l'hexagone de centre (xCenter, yCenter)
      */
     private boolean isInsideHexagon(double x, double y, double xCenter, double yCenter, int hexagonSize) {
         double q2x = Math.abs(x - xCenter);

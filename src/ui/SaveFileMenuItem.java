@@ -22,6 +22,5 @@ public class SaveFileMenuItem extends JMenuItem implements ActionListener {
         if(filePath != null) {
             this.mazeApp.getMazeAppModel().saveToTextFile(filePath);
         }
-
     }
 }

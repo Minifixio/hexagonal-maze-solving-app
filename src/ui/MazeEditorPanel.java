@@ -19,23 +19,11 @@ public class MazeEditorPanel extends JPanel {
 
     public MazeEditorPanel(MazeApp mazeApp) {
         this.mazeApp = mazeApp;
-        setBackground(Color.GRAY);
+        setOpaque(false);
 
         MazeEditorPanelMouseListener mazeEditorPanelMouseListener = new MazeEditorPanelMouseListener(mazeApp);
         addMouseListener(mazeEditorPanelMouseListener);
         addMouseMotionListener(mazeEditorPanelMouseListener);
-
-        File root = null;
-        try {
-            root = new File(Thread.currentThread().getContextClassLoader().getResource("").toURI());
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
-        try {
-            this.background = ImageIO.read(new File(root, "assets/background1.png"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
 
         setPreferredSize(new Dimension(mazeApp.getMazeAppModel().getAppWidth(),mazeApp.getMazeAppModel().getAppHeight()));
     }
@@ -43,9 +31,7 @@ public class MazeEditorPanel extends JPanel {
 
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(this.background, 0, 0, null);
         mazeApp.getMazeAppModel().refreshHexagonGrid(g);
-
     }
 
     public void notifyForUpdates() {

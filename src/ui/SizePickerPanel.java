@@ -16,14 +16,15 @@ public class SizePickerPanel extends JPanel implements ChangeListener {
     //private final SizeLabel sizeLabel;
 
     public SizePickerPanel(MazeApp mazeApp) {
-        setLayout(new GridLayout(2,1));
-
         this.mazeApp = mazeApp;
-        setPreferredSize(new Dimension(50,50));
 
+        setLayout(new GridLayout(2,1));
+        setOpaque(false);
+        setPreferredSize(new Dimension(50,100));
         setLayout(new GridLayout(2,0));
 
         JPanel sizeButtonsPanel = new JPanel();
+        sizeButtonsPanel.setOpaque(false);
         sizeButtonsPanel.setLayout(new GridLayout(0,2));
         sizeButtonsPanel.add(sizeWidthSpinner = new SizeWidthSpinner(mazeApp));
         sizeButtonsPanel.add(sizeHeightSpinner = new SizeHeightSpinner(mazeApp));

@@ -42,4 +42,5 @@ public class MazeApp extends JFrame implements ChangeListener {
         windowPanel.notifyForUpdates();
     }
 
+
 }

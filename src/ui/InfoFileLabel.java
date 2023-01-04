@@ -7,9 +7,19 @@ import java.awt.*;
 public class InfoFileLabel extends JLabel {
     private MazeApp mazeApp;
     public InfoFileLabel(MazeApp mazeApp) {
-        super("<html><h3>Lire/sauver ses propres labyrinthes</h3><p>Vous pouvez charger vos labyrinthe depuis <b>Fichier>Charger un fichier</b>. Chacunes des lignes doivent avoir la même longueur et doivent être uniquement composée de cractères parmis 'W', 'E', 'A' ou 'D'</html></p>");
-        setBackground(Color.WHITE);
-        setBorder(new EmptyBorder(0,10,0,10));
+        super("<html>" +
+                    "<div style='text-align: center;'>" +
+                    "<b>Lire/sauver ses propres labyrinthes</b>" +
+                    "<p>" +
+                        "Vous pouvez charger vos labyrinthe depuis Fichier>Charger un fichier. " +
+                        "Chacunes des lignes doivent avoir la même longueur et doivent être uniquement composée de cractères parmis 'W', 'E', 'A' ou 'D'" +
+                    "</p>" +
+                    "</div>" +
+                    "</html>"
+        );
+        setForeground(Color.WHITE);
+        setFont(new Font("Palatino", Font.PLAIN, 18));
+        setBorder(new EmptyBorder(20,0,0,0));
         this.mazeApp = mazeApp;
     }
 }
