@@ -1,4 +1,6 @@
-package ui;
+package ui.buttons;
+
+import ui.MazeApp;
 
 import javax.swing.*;
 import java.awt.*;
@@ -6,18 +8,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.net.URISyntaxException;
+import java.util.Objects;
 
-/**
- * Button permettant de générer un labyrinthe aléatoire
- */
-public class RandomizeButton extends JButton implements ActionListener {
+public class FindPathButton extends JButton implements ActionListener {
     private final MazeApp mazeApp;
 
-    public RandomizeButton(MazeApp mazeApp) {
-        super("Aléatoire");
-        File root = null;
+    public FindPathButton(MazeApp mazeApp) {
+        super("Résoudre");
+        File root;
         try {
-            root = new File(Thread.currentThread().getContextClassLoader().getResource("").toURI());
+            root = new File(Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResource("")).toURI());
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
@@ -36,8 +36,7 @@ public class RandomizeButton extends JButton implements ActionListener {
         addActionListener(this);
     }
 
-    @Override
     public void actionPerformed(ActionEvent e) {
-        this.mazeApp.getMazeAppModel().drawRandomHexagon();
+        this.mazeApp.getMazeAppModel().solveMaze();
     }
 }

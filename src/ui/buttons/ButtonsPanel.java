@@ -1,4 +1,7 @@
-package ui;
+package ui.buttons;
+
+import ui.*;
+import ui.panels.SizePickerPanel;
 
 import java.awt.*;
 import javax.swing.*;

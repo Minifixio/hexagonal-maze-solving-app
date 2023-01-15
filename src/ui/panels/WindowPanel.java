@@ -1,4 +1,6 @@
-package ui;
+package ui.panels;
+
+import ui.MazeApp;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -9,6 +11,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.Objects;
 
 /**
  * Fenêtre principale affichant les différents panels
@@ -16,15 +19,14 @@ import java.net.URISyntaxException;
 public class WindowPanel extends JPanel implements ChangeListener {
 
     private final MazeEditorPanel mazeEditorPanel;
-    private final InfoPanel infoPanel;
-    private BufferedImage background;
+    private final BufferedImage background;
 
     public WindowPanel(MazeApp mazeApp) {
         setLayout(new BorderLayout());
 
-        File root = null;
+        File root;
         try {
-            root = new File(Thread.currentThread().getContextClassLoader().getResource("").toURI());
+            root = new File(Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResource("")).toURI());
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
@@ -36,7 +38,7 @@ public class WindowPanel extends JPanel implements ChangeListener {
 
         mazeApp.getMazeAppModel().setPathFoundListener(this);
         add(mazeEditorPanel = new MazeEditorPanel(mazeApp), BorderLayout.CENTER);
-        add(infoPanel = new InfoPanel(mazeApp), BorderLayout.EAST);
+        add(new InfoPanel(mazeApp), BorderLayout.EAST);
     }
 
     protected void paintComponent(Graphics g) {

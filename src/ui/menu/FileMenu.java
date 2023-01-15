@@ -1,4 +1,6 @@
-package ui;
+package ui.menu;
+
+import ui.MazeApp;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -7,18 +9,13 @@ import javax.swing.event.ChangeListener;
 import static javax.swing.JOptionPane.showMessageDialog;
 
 public class FileMenu extends JMenu implements ChangeListener {
-    private final LoadFileMenuItem loadFileMenuItem;
-    private final SaveFileMenuItem saveFileMenuItem;
-
-    private MazeApp mazeApp;
 
 
     public FileMenu(MazeApp mazeApp) {
         super("Fichier");
-        add(loadFileMenuItem = new LoadFileMenuItem(mazeApp));
-        add(saveFileMenuItem = new SaveFileMenuItem(mazeApp));
-        this.mazeApp = mazeApp;
-        this.mazeApp.getMazeAppModel().setFileMenuListener(this);
+        add(new LoadFileMenuItem(mazeApp));
+        add(new SaveFileMenuItem(mazeApp));
+        mazeApp.getMazeAppModel().setFileMenuListener(this);
     }
 
     @Override

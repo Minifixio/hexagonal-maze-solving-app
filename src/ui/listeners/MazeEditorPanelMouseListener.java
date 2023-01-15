@@ -1,4 +1,6 @@
-package ui;
+package ui.listeners;
+
+import ui.MazeApp;
 
 import java.awt.event.*;
 

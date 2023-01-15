@@ -1,4 +1,6 @@
-package ui;
+package ui.buttons;
+
+import ui.MazeApp;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;

@@ -1,12 +1,13 @@
-package ui;
+package ui.menu;
+
+import ui.MazeApp;
+
 import javax.swing.*;
 
 public class MenuBar extends JMenuBar {
 
-    private final FileMenu fileMenu;
-
     public MenuBar(MazeApp mazeApp) {
         super();
-        add(fileMenu = new FileMenu(mazeApp));
+        add(new FileMenu(mazeApp));
     }
 }

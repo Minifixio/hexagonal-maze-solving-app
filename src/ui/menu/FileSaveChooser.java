@@ -1,20 +1,17 @@
-package ui;
+package ui.menu;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import java.awt.*;
 import java.io.File;
 
 public class FileSaveChooser extends JFileChooser {
-    private MazeApp mazeApp;
 
-    public FileSaveChooser(MazeApp mazeApp) {
+    public FileSaveChooser() {
         super();
         this.setCurrentDirectory(new File(System.getProperty("user.dir")));
         this.setAcceptAllFileFilterUsed(false);
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Fichier txt", "txt");
         this.addChoosableFileFilter(filter);
-        this.mazeApp = mazeApp;
     }
 
     public String openFileSave(String message) {
@@ -22,8 +19,7 @@ public class FileSaveChooser extends JFileChooser {
         int userSelection = this.showSaveDialog(null);
         if (userSelection == JFileChooser.APPROVE_OPTION) {
             File fileToSave = this.getSelectedFile();
-            String path = fileToSave.getAbsolutePath() + ".txt";
-            return path;
+            return fileToSave.getAbsolutePath() + ".txt";
         } else {
             return null;
         }

@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.Objects;
 
 public class DepartureTraveller {
 
@@ -18,13 +19,13 @@ public class DepartureTraveller {
         this.x = x;
         this.y = y;
         this.size = size;
-        File root = null;
+        File root;
         try {
-            root = new File(Thread.currentThread().getContextClassLoader().getResource("").toURI());
+            root = new File(Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResource("")).toURI());
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
-        BufferedImage myImage = null;
+        BufferedImage myImage;
         try {
             myImage = ImageIO.read(new File(root, "assets/traveller1.png"));
         } catch (IOException e) {

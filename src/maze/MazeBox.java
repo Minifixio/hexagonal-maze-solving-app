@@ -11,11 +11,12 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class MazeBox implements Vertex {
     public int x;
     public int y;
-    private Maze maze;
+    private final Maze maze;
 
     /**
      * Indique si la case fait partie du chemin optimal de l'origine à la case de fin
@@ -35,9 +36,7 @@ public class MazeBox implements Vertex {
      * 'D' -> DepartureMazeBox
      * 'A' -> ArrivalMazeBox
      */
-    private char type;
-
-    public Color color;
+    private final char type;
     private TexturePaint texturePaint;
     private TexturePaint defaultTexturePaint;
 
@@ -46,32 +45,6 @@ public class MazeBox implements Vertex {
         this.y = y;
         this.maze = maze;
         this.type = type;
-    }
-
-
-    /**
-     * Fonction utilisée pour résoudre des Labyrinthe rectangulaire
-     * @return les sommets voisins dans une grille avec des carrés
-     */
-    public List<Vertex> getSuccessorsSquareGrid() {
-        List<Vertex> successors = new ArrayList<>();
-        for (int i=-1; i<=1; i=i+2) {
-            if (
-                    this.x+i > 0
-                    && this.x+i < this.maze.width
-                    && !(this.maze.getBoxByCoords(this.x+i, this.y) instanceof WallMazeBox)
-            ) {
-                successors.add(this.maze.getBoxByCoords(this.x+i, this.y));
-            }
-            if (
-                    this.y+i > 0
-                    && this.y+i < this.maze.height
-                    && !(this.maze.getBoxByCoords(this.x, this.y+i) instanceof WallMazeBox)
-            ) {
-                successors.add(this.maze.getBoxByCoords(this.x, this.y+i));
-            }
-        }
-        return successors;
     }
 
     /**
@@ -136,12 +109,7 @@ public class MazeBox implements Vertex {
 
     public void setHexagon(Hexagon hexagon) {
         this.hexagon = hexagon;
-        this.hexagon.setColor(this.getColor());
         this.hexagon.setTexturePaint(this.texturePaint);
-    }
-
-    public void setHexagonColor(Color color) {
-        this.hexagon.setColor(color);
     }
 
     public Hexagon getHexagon() {
@@ -156,22 +124,14 @@ public class MazeBox implements Vertex {
      * 'D' -> DepartureMazeBox -> YELLOW
      * 'A' -> ArrivalMazeBox -> RED
      */
-    public Color getColor() {
-        return this.color;
-    }
-
-    public TexturePaint getPaint() {
-        return this.texturePaint;
-    }
-
     public void setTexturePaint(String imgName) {
-        File root = null;
+        File root;
         try {
-            root = new File(Thread.currentThread().getContextClassLoader().getResource("").toURI());
+            root = new File(Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResource("")).toURI());
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
-        BufferedImage myImage = null;
+        BufferedImage myImage;
         try {
             myImage = ImageIO.read(new File(root, "assets/" + imgName));
         } catch (IOException e) {
@@ -189,22 +149,18 @@ public class MazeBox implements Vertex {
         this.hexagon.setTexturePaint(this.defaultTexturePaint);
     }
 
-    public void setDefaultColor() {
-        this.hexagon.setColor(this.getColor());
-    }
-
     public char getType() {
         return this.type;
     }
 
     public void setDefaultTexturePaint(String imgName) {
-        File root = null;
+        File root;
         try {
-            root = new File(Thread.currentThread().getContextClassLoader().getResource("").toURI());
+            root = new File(Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResource("")).toURI());
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
-        BufferedImage myImage = null;
+        BufferedImage myImage;
         try {
             myImage = ImageIO.read(new File(root, "assets/" + imgName));
         } catch (IOException e) {

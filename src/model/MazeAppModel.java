@@ -4,15 +4,9 @@ import dijkstra.Dijkstra;
 import dijkstra.ShortestPaths;
 import maze.*;
 
-import javax.imageio.ImageIO;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
 
 import static java.lang.Math.min;
 
@@ -45,7 +39,7 @@ public class MazeAppModel {
     private int widthSpinnerValue;
     private int heightSpinnerValue;
     private int hexagonSize;
-    private Maze maze = new Maze();
+    private final Maze maze = new Maze();
 
     public MazeAppModel(int gridWidth, int gridHeight, int hexagonSize, int appWidth, int appHeight) {
         this.gridWidth = gridWidth;
@@ -64,7 +58,6 @@ public class MazeAppModel {
         // On initialise de manière à placer les hexagones dans le cadre du panel
         double startXPos = (this.appWidth - Math.sqrt(3)*hexagonSize*this.gridWidth)/2;
         double startYPos = (this.appHeight - 2*hexagonSize*this.gridHeight)/2;
-        System.out.println(startXPos + " "  + startYPos);
         double[] pos = new double[]{startXPos,startYPos};
 
         for(int i=0;i<gridHeight;i++) {
@@ -91,8 +84,6 @@ public class MazeAppModel {
      * Ré-initialise la grille en générant une grille de cases vides de la taille adéquate
      */
     public void resetHexagonGrid() {
-        System.out.println("Reset grid with size : width "  + this.gridWidth + " height " + this.gridHeight);
-
         this.maze.initEmptyMaze(gridWidth, gridHeight);
         this.assignHexagons();
     }
@@ -156,7 +147,6 @@ public class MazeAppModel {
                 MazeBox box = maze.getBoxByCoords(i,j);
                 // On colore les cases du chemin optimal différement
                 if (box.isInPath) {
-                    box.setHexagonColor(Color.MAGENTA);
                     box.setHexagonTexturePaint("path1.png");
                 }
             }
@@ -180,12 +170,9 @@ public class MazeAppModel {
         MazeBox box = maze.getBoxByCoords(x, y);
         MazeBox newBox = null;
 
-        switch(box.getType()) {
-            case 'E':
-                newBox = new WallMazeBox(maze, x, y);
-                break;
-            case 'W':
-                System.out.println('W');
+        switch (box.getType()) {
+            case 'E' -> newBox = new WallMazeBox(maze, x, y);
+            case 'W' -> {
                 newBox = new DepartureMazeBox(maze, x, y);
 
                 // Si il existe déjà une case départ...
@@ -197,9 +184,8 @@ public class MazeAppModel {
                 }
                 // .. on la remplace par une case vide
                 this.maze.setStartVertex(newBox);
-                break;
-            case 'D':
-                System.out.println('D');
+            }
+            case 'D' -> {
                 newBox = new ArrivalMazeBox(maze, x, y);
 
                 // Si il existe déjà une case arrivée...
@@ -212,12 +198,11 @@ public class MazeAppModel {
                 // ...on la remplace par une case vide
                 this.maze.setStartVertex(null);
                 this.maze.setEndVertex(newBox);
-                break;
-            case 'A':
-                System.out.println('A');
+            }
+            case 'A' -> {
                 this.maze.setEndVertex(null);
                 newBox = new EmptyMazeBox(maze, x, y);
-                break;
+            }
         }
         Hexagon h = new Hexagon(box.getHexagon().getxCenter(), box.getHexagon().getyCenter(), hexagonSize);
         newBox.setHexagon(h);
@@ -234,7 +219,6 @@ public class MazeAppModel {
         for(int i=0;i<gridWidth;i++) {
             for(int j=0;j<gridHeight;j++) {
                 if (isInsideHexagon(x, y, maze.getBoxByCoords(i,j).getHexagon().getxCenter(), maze.getBoxByCoords(i,j).getHexagon().getyCenter(), this.hexagonSize)) {
-                    System.out.println("Is in : " + i + " " + j);
                     this.changeMazeBoxType(i,j);
                     this.mazeSateChanged();
                     return;

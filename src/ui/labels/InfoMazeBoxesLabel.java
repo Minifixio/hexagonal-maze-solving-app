@@ -1,11 +1,12 @@
-package ui;
+package ui.labels;
+
+import ui.MazeApp;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class InfoMazeBoxesLabel extends JLabel {
-    private MazeApp mazeApp;
     public InfoMazeBoxesLabel(MazeApp mazeApp) {
         super("<html>" +
                     "<div style='text-align: center;'>" +
@@ -20,6 +21,5 @@ public class InfoMazeBoxesLabel extends JLabel {
         setForeground(Color.WHITE);
         setFont(new Font("Palatino", Font.PLAIN, 18));
         setBorder(new EmptyBorder(0,0,0,0));
-        this.mazeApp = mazeApp;
     }
 }

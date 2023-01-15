@@ -1,4 +1,9 @@
-package ui;
+package ui.panels;
+
+import ui.MazeApp;
+import ui.buttons.SizeValidationButton;
+import ui.buttons.SizeWidthSpinner;
+import ui.buttons.SizeHeightSpinner;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -9,14 +14,10 @@ import java.awt.*;
  * Panel contenant les outils de redimension du labyrinthe
  */
 public class SizePickerPanel extends JPanel implements ChangeListener {
-    private final MazeApp mazeApp;
-    private final SizeValidationButton sizeValidationButton;
     private final SizeWidthSpinner sizeWidthSpinner;
     private final SizeHeightSpinner sizeHeightSpinner;
-    //private final SizeLabel sizeLabel;
 
     public SizePickerPanel(MazeApp mazeApp) {
-        this.mazeApp = mazeApp;
 
         setLayout(new GridLayout(2,1));
         setOpaque(false);
@@ -29,11 +30,11 @@ public class SizePickerPanel extends JPanel implements ChangeListener {
         sizeButtonsPanel.add(sizeWidthSpinner = new SizeWidthSpinner(mazeApp));
         sizeButtonsPanel.add(sizeHeightSpinner = new SizeHeightSpinner(mazeApp));
         add(sizeButtonsPanel);
-        add(sizeValidationButton = new SizeValidationButton(mazeApp));
+        add(new SizeValidationButton(mazeApp));
 
         setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        this.mazeApp.getMazeAppModel().setSizePanelListener(this);
+        mazeApp.getMazeAppModel().setSizePanelListener(this);
 
     }
 

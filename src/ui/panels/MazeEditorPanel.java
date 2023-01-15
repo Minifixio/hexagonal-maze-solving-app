@@ -1,13 +1,11 @@
-package ui;
+package ui.panels;
 
-import javax.imageio.ImageIO;
+import ui.MazeApp;
+import ui.listeners.MazeEditorPanelMouseListener;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
 
 /**
  * Fenêtre d'édition du labyrinthe contenant les hexagones
@@ -15,7 +13,6 @@ import java.net.URISyntaxException;
 public class MazeEditorPanel extends JPanel {
 
     private final MazeApp mazeApp;
-    private BufferedImage background;
 
     public MazeEditorPanel(MazeApp mazeApp) {
         this.mazeApp = mazeApp;

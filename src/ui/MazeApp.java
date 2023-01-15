@@ -1,14 +1,15 @@
 package ui;
 import model.MazeAppModel;
+import ui.menu.MenuBar;
+import ui.panels.WindowPanel;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 public class MazeApp extends JFrame implements ChangeListener {
-    private final MenuBar MenuBar;
     private final WindowPanel windowPanel;
-    private MazeAppModel mazeAppModel;
+    private final MazeAppModel mazeAppModel;
 
     public MazeApp(int appWidth, int appHeight, int hexagonSize, int mazeMinSize, int mazeDefaultWidth, int mazeDefaultHeight) {
         super("Labyrinth");
@@ -24,7 +25,7 @@ public class MazeApp extends JFrame implements ChangeListener {
         this.mazeAppModel.setMazeDefaultHeight(mazeDefaultHeight);
         this.mazeAppModel.setMazeDefaultWidth(mazeDefaultWidth);
 
-        setJMenuBar(MenuBar = new MenuBar(this));
+        setJMenuBar(new MenuBar(this));
         setContentPane(windowPanel = new WindowPanel(this));
 
         mazeAppModel.setMazeAppListener(this);

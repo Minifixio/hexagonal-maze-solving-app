@@ -58,21 +58,13 @@ public class Maze implements Graph {
      */
     public void printMaze() {
         for (int i=0; i<this.height; i++) {
-            String line = "";
+            StringBuilder line = new StringBuilder();
             for (int j=0; j<this.width; j++) {
                 switch (this.getBoxByCoords(j, i).getType()) {
-                    case ('E'):
-                        line += "🬀";
-                        break;
-                    case ('W'):
-                        line += '█';
-                        break;
-                    case ('A'):
-                        line += "X";
-                        break;
-                    case ('D'):
-                        line += "O";
-                        break;
+                    case ('E') -> line.append("🬀");
+                    case ('W') -> line.append('█');
+                    case ('A') -> line.append("X");
+                    case ('D') -> line.append("O");
                 }
             }
             System.out.println(line);
@@ -99,7 +91,7 @@ public class Maze implements Graph {
                 // On reset le Buffer car on a fait descendre le curseur jusqu'en bas pour avoir mazeLength
                 br = new BufferedReader(new FileReader(fileLocation));
 
-                String line = null;
+                String line;
                 int lineCount = 0;
                 while ((line = br.readLine()) != null) {
 
@@ -193,9 +185,9 @@ public class Maze implements Graph {
             System.out.println("Saving to file : " + filePath);
             PrintWriter pw = new PrintWriter(filePath);
             for (int i=0; i<this.width; i++) {
-                String line = "";
+                StringBuilder line = new StringBuilder();
                 for (int j=0;j<this.height; j++) {
-                    line += this.getBoxByCoords(i,j).getType();
+                    line.append(this.getBoxByCoords(i, j).getType());
                 }
                 pw.println(line);
             }
@@ -221,7 +213,6 @@ public class Maze implements Graph {
      * @param box la MazeBox à attribuer en (x,y)
      */
     public void setBoxByCoords(int x, int y, MazeBox box) {
-        this.boxes[x][y] = null;
         this.boxes[x][y] = box;
     }
 
@@ -245,7 +236,6 @@ public class Maze implements Graph {
         for (int i=0; i<this.width; i++) {
             for(int j=0; j<this.height; j++) {
                 this.getBoxByCoords(i,j).isInPath = false;
-                this.getBoxByCoords(i,j).setDefaultColor();
                 this.getBoxByCoords(i,j).setHexagonDefaultTexturePaint();
             }
         }
@@ -275,11 +265,10 @@ public class Maze implements Graph {
      */
     public void printShortestPath(Vertex vertex, ShortestPaths shortestPaths) {
         MazeBox predecessor = (MazeBox) shortestPaths.getPredecessor(vertex);
-        String pathToDeparture = "";
+        StringBuilder pathToDeparture = new StringBuilder();
         while (predecessor != departureMazeBox) {
-            pathToDeparture += (" -> Box(" + predecessor.x + "," + predecessor.y + ")");
-            MazeBox predecessorTemp = (MazeBox) shortestPaths.getPredecessor(predecessor);
-            predecessor = predecessorTemp;
+            pathToDeparture.append(" -> Box(").append(predecessor.x).append(",").append(predecessor.y).append(")");
+            predecessor = (MazeBox) shortestPaths.getPredecessor(predecessor);
         }
         System.out.println(pathToDeparture);
     }
@@ -298,8 +287,7 @@ public class Maze implements Graph {
                 return false;
             }
             predecessor.isInPath = true;
-            MazeBox predecessorTemp = (MazeBox) shortestPaths.getPredecessor(predecessor);
-            predecessor = predecessorTemp;
+            predecessor = (MazeBox) shortestPaths.getPredecessor(predecessor);
         }
         return true;
     }
@@ -316,24 +304,16 @@ public class Maze implements Graph {
     public void printPathInMaze(ShortestPaths shortestPaths) {
         setBoxesInPath(shortestPaths);
         for (int i=0; i<this.height; i++) {
-            String line = "";
+            StringBuilder line = new StringBuilder();
             for (int j=0; j<this.width; j++) {
                 if (this.getBoxByCoords(j,i).isInPath){
-                    line += "•";
+                    line.append("•");
                 } else {
-                    switch(this.getBoxByCoords(j,i).getType()) {
-                        case ('E'):
-                            line += "🬀";
-                            break;
-                        case ('W'):
-                            line += '█';
-                            break;
-                        case ('A'):
-                            line += "X";
-                            break;
-                        case ('D'):
-                            line += "O";
-                            break;
+                    switch (this.getBoxByCoords(j, i).getType()) {
+                        case ('E') -> line.append("🬀");
+                        case ('W') -> line.append('█');
+                        case ('A') -> line.append("X");
+                        case ('D') -> line.append("O");
                     }
                 }
 

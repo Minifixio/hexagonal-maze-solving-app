@@ -1,15 +1,11 @@
-package ui;
+package ui.buttons;
 
-import javax.imageio.ImageIO;
+import ui.MazeApp;
+
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.plaf.basic.BasicSpinnerUI;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
 
 /**
  * Spinner permettent de choisir la valeur entière de la largeur du labyrinthe

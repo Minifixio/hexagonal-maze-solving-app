@@ -1,11 +1,12 @@
-package ui;
+package ui.labels;
+
+import ui.MazeApp;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class InfoFileLabel extends JLabel {
-    private MazeApp mazeApp;
     public InfoFileLabel(MazeApp mazeApp) {
         super("<html>" +
                     "<div style='text-align: center;'>" +
@@ -20,6 +21,5 @@ public class InfoFileLabel extends JLabel {
         setForeground(Color.WHITE);
         setFont(new Font("Palatino", Font.PLAIN, 18));
         setBorder(new EmptyBorder(20,0,0,0));
-        this.mazeApp = mazeApp;
     }
 }

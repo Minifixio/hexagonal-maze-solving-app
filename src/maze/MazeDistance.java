@@ -7,8 +7,6 @@ public class MazeDistance implements Distance {
 
     /**
      * On suppose que les deux sommets passés en paramètres sont adjacents
-     * @param vertex1
-     * @param vertex2
      * @return +inf si l'un des deux sommets est un mur, 1 sinon
      */
     public Integer distance(Vertex vertex1, Vertex vertex2) {

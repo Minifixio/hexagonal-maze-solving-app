@@ -1,19 +1,19 @@
-package ui;
+package ui.menu;
+
+import ui.MazeApp;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
 
 public class FileLoadChooser extends JFileChooser {
-    private MazeApp mazeApp;
 
-    public FileLoadChooser(MazeApp mazeApp) {
+    public FileLoadChooser() {
         super();
         this.setCurrentDirectory(new File(System.getProperty("user.dir")));
         this.setAcceptAllFileFilterUsed(false);
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Fichier txt", "txt");
         this.addChoosableFileFilter(filter);
-        this.mazeApp = mazeApp;
     }
 
     public String openFileChooser(String message) {
