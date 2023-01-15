@@ -3,7 +3,7 @@ import maze.Maze;
 import maze.MazeDistance;
 import maze.MazeReadingException;
 
-public class MainTest {
+public class Main {
 
     private static Maze maze;
     private static MazeDistance mazeDistance;
