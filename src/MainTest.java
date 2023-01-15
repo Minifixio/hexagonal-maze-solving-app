@@ -9,7 +9,7 @@ public class MainTest {
     private static MazeDistance mazeDistance;
 
     public static void main(String[] args) throws MazeReadingException {
-        new MazeApp(1000,1000,30, 5, 10, 10);
+        new MazeApp(1000,1000,30, 5, 12, 12);
     }
 
 

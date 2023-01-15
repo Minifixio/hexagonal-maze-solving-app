@@ -27,7 +27,7 @@ public class ArrivalFlag {
         }
         BufferedImage myImage;
         try {
-            myImage = ImageIO.read(new File(root, "assets/flag1.png"));
+            myImage = ImageIO.read(new File(root, "assets/flag.png"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
