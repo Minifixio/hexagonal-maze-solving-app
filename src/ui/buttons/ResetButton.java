@@ -25,7 +25,7 @@ public class ResetButton extends JButton implements ActionListener {
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
-        File background = new File(root, "assets/button_default.png");
+        File background = new File(root, "ressources/button_default.png");
         ImageIcon icon = new ImageIcon(background.toURI().getPath());
         setIcon(icon);
 

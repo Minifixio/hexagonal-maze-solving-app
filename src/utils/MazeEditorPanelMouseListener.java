@@ -1,4 +1,4 @@
-package ui.listeners;
+package utils;
 
 import ui.MazeApp;
 

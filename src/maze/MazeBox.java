@@ -2,6 +2,7 @@ package maze;
 
 import dijkstra.Vertex;
 import model.Hexagon;
+import utils.ImageLoader;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -125,19 +126,8 @@ public class MazeBox implements Vertex {
      * 'A' -> ArrivalMazeBox -> RED
      */
     public void setTexturePaint(String imgName) {
-        File root;
-        try {
-            root = new File(Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResource("")).toURI());
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
-        BufferedImage myImage;
-        try {
-            myImage = ImageIO.read(new File(root, "assets/" + imgName));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        this.texturePaint = new TexturePaint(myImage, new Rectangle(this.x, this.y, 50, 50));
+        BufferedImage textureImage = ImageLoader.loadImageFromName(imgName);
+        this.texturePaint = new TexturePaint(textureImage, new Rectangle(this.x, this.y, 50, 50));
     }
 
     public void setHexagonTexturePaint(String imgName) {
@@ -162,7 +152,7 @@ public class MazeBox implements Vertex {
         }
         BufferedImage myImage;
         try {
-            myImage = ImageIO.read(new File(root, "assets/" + imgName));
+            myImage = ImageIO.read(new File(root, "ressources/" + imgName));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -67,7 +67,6 @@ public class Maze implements Graph {
                     case ('D') -> line.append("O");
                 }
             }
-            System.out.println(line);
         }
     }
 
@@ -182,7 +181,7 @@ public class Maze implements Graph {
      */
     public void saveToTextFile(String filePath) throws MazeWritingException {
         try {
-            System.out.println("Saving to file : " + filePath);
+            System.out.println("Labyrinthe sauvé à l'emplacement : " + filePath);
             PrintWriter pw = new PrintWriter(filePath);
             for (int i=0; i<this.width; i++) {
                 StringBuilder line = new StringBuilder();
@@ -270,7 +269,6 @@ public class Maze implements Graph {
             pathToDeparture.append(" -> Box(").append(predecessor.x).append(",").append(predecessor.y).append(")");
             predecessor = (MazeBox) shortestPaths.getPredecessor(predecessor);
         }
-        System.out.println(pathToDeparture);
     }
 
     /**
@@ -318,7 +316,6 @@ public class Maze implements Graph {
                 }
 
             }
-            System.out.println(line);
         }
     }
 

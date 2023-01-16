@@ -1,8 +1,9 @@
 package model;
 
+import utils.ImageLoader;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.geom.Path2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -19,19 +20,7 @@ public class ArrivalFlag {
         this.x = x;
         this.y = y;
         this.size = size;
-        File root;
-        try {
-            root = new File(Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResource("")).toURI());
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
-        BufferedImage myImage;
-        try {
-            myImage = ImageIO.read(new File(root, "assets/flag.png"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        this.icon = myImage;
+        this.icon = ImageLoader.loadImageFromName("flag.png");
     }
 
     public void paint(Graphics g) {

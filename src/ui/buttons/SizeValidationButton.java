@@ -24,7 +24,7 @@ public class SizeValidationButton extends JButton implements ActionListener {
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
-        File background = new File(root, "assets/button_size.png");
+        File background = new File(root, "ressources/button_size.png");
         ImageIcon icon = new ImageIcon(background.toURI().getPath());
         setIcon(icon);
 

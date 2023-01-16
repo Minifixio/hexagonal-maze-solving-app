@@ -31,7 +31,7 @@ public class WindowPanel extends JPanel implements ChangeListener {
             throw new RuntimeException(e);
         }
         try {
-            this.background = ImageIO.read(new File(root, "assets/background1.png"));
+            this.background = ImageIO.read(new File(root, "ressources/background1.png"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -1,11 +1,10 @@
 package ui.panels;
 
 import ui.MazeApp;
-import ui.listeners.MazeEditorPanelMouseListener;
+import utils.MazeEditorPanelMouseListener;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 /**
  * Fenêtre d'édition du labyrinthe contenant les hexagones

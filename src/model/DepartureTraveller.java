@@ -1,5 +1,7 @@
 package model;
 
+import utils.ImageLoader;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -19,19 +21,7 @@ public class DepartureTraveller {
         this.x = x;
         this.y = y;
         this.size = size;
-        File root;
-        try {
-            root = new File(Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResource("")).toURI());
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
-        BufferedImage myImage;
-        try {
-            myImage = ImageIO.read(new File(root, "assets/traveller1.png"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        this.icon = myImage;
+        this.icon = ImageLoader.loadImageFromName("traveller1.png");
     }
 
     public void paint(Graphics g) {
