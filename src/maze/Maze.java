@@ -157,13 +157,13 @@ public class Maze implements Graph {
 
         Random random = new Random();
         int randomXArrival = random.nextInt(this.width);
-        int randomYArrival = random.nextInt(this.width);
+        int randomYArrival = random.nextInt(this.height);
         int randomXDeparture= random.nextInt(this.width);
-        int randomYDeparture = random.nextInt(this.width);
+        int randomYDeparture = random.nextInt(this.height);
 
         while(randomXDeparture == randomXArrival && randomYDeparture == randomYArrival) {
             randomXDeparture= random.nextInt(this.width);
-            randomYDeparture = random.nextInt(this.width);
+            randomYDeparture = random.nextInt(this.height);
         }
 
         ArrivalMazeBox arrival = new ArrivalMazeBox(this, randomXArrival, randomYArrival);
