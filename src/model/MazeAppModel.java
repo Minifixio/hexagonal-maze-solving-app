@@ -173,31 +173,26 @@ public class MazeAppModel {
         switch (box.getType()) {
             case 'E' -> newBox = new WallMazeBox(maze, x, y);
             case 'W' -> {
-                newBox = new DepartureMazeBox(maze, x, y);
-
-                // Si il existe déjà une case départ...
                 if (this.maze.getStartVertex() != null) {
-                    EmptyMazeBox e = new EmptyMazeBox(maze, this.maze.getStartVertex().x, this.maze.getStartVertex().y);
-                    Hexagon h = new Hexagon(this.maze.getStartVertex().getHexagon().getxCenter(), this.maze.getStartVertex().getHexagon().getyCenter(), hexagonSize);
-                    e.setHexagon(h);
-                    this.maze.setBoxByCoords(this.maze.getStartVertex().x, this.maze.getStartVertex().y, e);
+                    if(this.maze.getEndVertex() != null) {
+                        newBox = new EmptyMazeBox(maze, x, y);
+                    } else {
+                        newBox = new ArrivalMazeBox(maze, x, y);
+                        this.maze.setEndVertex(newBox);
+                    }
+                } else {
+                    newBox = new DepartureMazeBox(maze, x, y);
+                    this.maze.setStartVertex(newBox);
                 }
-                // .. on la remplace par une case vide
-                this.maze.setStartVertex(newBox);
             }
             case 'D' -> {
-                newBox = new ArrivalMazeBox(maze, x, y);
-
-                // Si il existe déjà une case arrivée...
-                if (this.maze.getEndVertex() != null) {
-                    EmptyMazeBox e = new EmptyMazeBox(maze, this.maze.getEndVertex().x, this.maze.getEndVertex().y);
-                    Hexagon h = new Hexagon(this.maze.getEndVertex().getHexagon().getxCenter(), this.maze.getEndVertex().getHexagon().getyCenter(), hexagonSize);
-                    e.setHexagon(h);
-                    this.maze.setBoxByCoords(this.maze.getEndVertex().x, this.maze.getEndVertex().y, e);
-                }
-                // ...on la remplace par une case vide
                 this.maze.setStartVertex(null);
-                this.maze.setEndVertex(newBox);
+                if (this.maze.getEndVertex() != null) {
+                    newBox = new EmptyMazeBox(maze, x, y);
+                } else {
+                    newBox = new ArrivalMazeBox(maze, x, y);
+                    this.maze.setEndVertex(newBox);
+                }
             }
             case 'A' -> {
                 this.maze.setEndVertex(null);
