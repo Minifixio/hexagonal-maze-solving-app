@@ -29,8 +29,8 @@ public class MazeAppModel {
     private ChangeListener pathFoundListener;
     private int gridWidth;
     private int gridHeight;
-    private int appHeight;
-    private int appWidth;
+    private final int appHeight;
+    private final int appWidth;
     private int mazeMinSize;
     private int mazeMaxWidth;
     private int mazeMaxHeight;
@@ -90,7 +90,6 @@ public class MazeAppModel {
 
     /**
      * Appelée depuis l'ui pour rafraichir la grille en redessinant chacun des hexagones
-     * @param g
      */
     public void refreshHexagonGrid(Graphics g) {
         for(int i=0;i<gridWidth;i++) {
@@ -163,8 +162,6 @@ public class MazeAppModel {
      * Si il y a déjà une case d'arrivée (de départ), et que l'on clique sur un mur (sur une case de départ),
      * on efface la case d'arrivée courante (de départ) en la remplacant par une case vide
      *
-     * @param x
-     * @param y
      */
     private void changeMazeBoxType(int x, int y) {
         MazeBox box = maze.getBoxByCoords(x, y);
@@ -200,6 +197,7 @@ public class MazeAppModel {
             }
         }
         Hexagon h = new Hexagon(box.getHexagon().getxCenter(), box.getHexagon().getyCenter(), hexagonSize);
+        assert newBox != null;
         newBox.setHexagon(h);
         maze.setBoxByCoords(x,y, newBox);
         maze.printMaze();
@@ -207,8 +205,6 @@ public class MazeAppModel {
 
     /**
      * Traite un clic sur la fenètre pour trouver sur quel hexagone il a eu lieu
-     * @param x
-     * @param y
      */
     public void changeMazeBoxFromClick(double x, double y) {
         for(int i=0;i<gridWidth;i++) {
@@ -225,11 +221,6 @@ public class MazeAppModel {
     /**
      * On teste si un point (x,y) est situé dans l'intérieur de l'hexagone de centre (xCenter, yCenter)
      * Explications : http://www.playchilla.com/how-to-check-if-a-point-is-inside-a-hexagon
-     * @param x
-     * @param y
-     * @param xCenter
-     * @param yCenter
-     * @param hexagonSize
      * @return true ou false selon si le point est dans l'hexagone de centre (xCenter, yCenter)
      */
     private boolean isInsideHexagon(double x, double y, double xCenter, double yCenter, int hexagonSize) {
@@ -333,14 +324,6 @@ public class MazeAppModel {
         this.redrawHexagonGrid();
     }
 
-    public void setAppHeight(int appHeight) {
-        this.appHeight = appHeight;
-    }
-
-    public void setAppWidth(int appWidth) {
-        this.appWidth = appWidth;
-    }
-
     public int getAppHeight() {
         return this.appHeight;
     }
@@ -399,10 +382,6 @@ public class MazeAppModel {
 
     public void setMazeDefaultWidth(int mazeDefaultWidth) {
         this.mazeDefaultWidth = mazeDefaultWidth;
-    }
-
-    public ChangeListener getPathFoundListener() {
-        return pathFoundListener;
     }
 
     public void setPathFoundListener(ChangeListener pathFoundListener) {

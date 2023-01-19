@@ -1,6 +1,7 @@
 package ui.panels;
 
 import ui.MazeApp;
+import utils.ImageLoader;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -24,17 +25,7 @@ public class WindowPanel extends JPanel implements ChangeListener {
     public WindowPanel(MazeApp mazeApp) {
         setLayout(new BorderLayout());
 
-        File root;
-        try {
-            root = new File(Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResource("")).toURI());
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
-        try {
-            this.background = ImageIO.read(new File(root, "ressources/background1.png"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        this.background = ImageLoader.loadImageFromName("background1.png");
 
         mazeApp.getMazeAppModel().setPathFoundListener(this);
         add(mazeEditorPanel = new MazeEditorPanel(mazeApp), BorderLayout.CENTER);

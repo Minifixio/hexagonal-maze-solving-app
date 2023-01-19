@@ -15,8 +15,8 @@ public class InfoPanel extends JPanel {
         setLayout(new GridLayout(3,1));
         setOpaque(false);
         setPreferredSize(new Dimension(250, mazeApp.getMazeAppModel().getAppHeight()));
-        add(new InfoFileLabel(mazeApp));
-        add(new InfoMazeBoxesLabel(mazeApp));
+        add(new InfoFileLabel());
+        add(new InfoMazeBoxesLabel());
         add(new ButtonsPanel(mazeApp));
     }
 }

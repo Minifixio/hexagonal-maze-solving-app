@@ -1,13 +1,11 @@
 package ui.labels;
 
-import ui.MazeApp;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class InfoMazeBoxesLabel extends JLabel {
-    public InfoMazeBoxesLabel(MazeApp mazeApp) {
+    public InfoMazeBoxesLabel() {
         super("<html>" +
                     "<div style='text-align: center;'>" +
                     "<b>A propos de l'éditeur de labyrinthe</b>" +

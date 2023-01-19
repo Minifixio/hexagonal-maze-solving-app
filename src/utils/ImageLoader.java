@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class ImageLoader {
-
     public static BufferedImage loadImageFromName(String imgName) {
         BufferedImage image = null;
         InputStream stream = ImageLoader.class.getResourceAsStream("/ressources/" + imgName);

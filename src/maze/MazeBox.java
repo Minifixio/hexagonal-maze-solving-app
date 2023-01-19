@@ -4,15 +4,10 @@ import dijkstra.Vertex;
 import model.Hexagon;
 import utils.ImageLoader;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class MazeBox implements Vertex {
     public int x;
@@ -117,14 +112,6 @@ public class MazeBox implements Vertex {
         return this.hexagon;
     }
 
-
-    /**
-     * @return Renvoi la couleur associée au type de case
-     * 'W' -> WallMazeBox -> DARK_GRAY
-     * 'E' -> EmptyMazeBox -> LIGHT_GRAY
-     * 'D' -> DepartureMazeBox -> YELLOW
-     * 'A' -> ArrivalMazeBox -> RED
-     */
     public void setTexturePaint(String imgName) {
         BufferedImage textureImage = ImageLoader.loadImageFromName(imgName);
         this.texturePaint = new TexturePaint(textureImage, new Rectangle(this.x, this.y, 50, 50));
@@ -144,19 +131,8 @@ public class MazeBox implements Vertex {
     }
 
     public void setDefaultTexturePaint(String imgName) {
-        File root;
-        try {
-            root = new File(Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResource("")).toURI());
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
-        BufferedImage myImage;
-        try {
-            myImage = ImageIO.read(new File(root, "ressources/" + imgName));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        this.defaultTexturePaint = new TexturePaint(myImage, new Rectangle(this.x, this.y, 50, 50));
+        BufferedImage defaultTexturePaintImage = ImageLoader.loadImageFromName(imgName);
+        this.defaultTexturePaint = new TexturePaint(defaultTexturePaintImage, new Rectangle(this.x, this.y, 50, 50));
         this.texturePaint = this.defaultTexturePaint;
     }
 }

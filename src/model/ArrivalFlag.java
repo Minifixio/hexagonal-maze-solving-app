@@ -2,19 +2,14 @@ package model;
 
 import utils.ImageLoader;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.util.Objects;
 
 public class ArrivalFlag {
-    private double x;
-    private double y;
-    private int size;
-    private BufferedImage icon;
+    private final double x;
+    private final double y;
+    private final int size;
+    private final BufferedImage icon;
 
     public ArrivalFlag(int x, int y, int size) {
         this.x = x;

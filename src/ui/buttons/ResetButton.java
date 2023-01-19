@@ -1,11 +1,13 @@
 package ui.buttons;
 
 import ui.MazeApp;
+import utils.ImageLoader;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.util.Objects;
@@ -19,15 +21,12 @@ public class ResetButton extends JButton implements ActionListener {
 
     public ResetButton(MazeApp mazeApp) {
         super("Réinitialiser");
-        File root;
-        try {
-            root = new File(Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResource("")).toURI());
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
-        File background = new File(root, "ressources/button_default.png");
-        ImageIcon icon = new ImageIcon(background.toURI().getPath());
-        setIcon(icon);
+
+        this.mazeApp = mazeApp;
+
+        BufferedImage buttonImage = ImageLoader.loadImageFromName("button_default.png");
+        ImageIcon buttonIcon = new ImageIcon(buttonImage);
+        setIcon(buttonIcon);
 
         setOpaque(false);
         setContentAreaFilled(false);
@@ -36,7 +35,6 @@ public class ResetButton extends JButton implements ActionListener {
         setHorizontalTextPosition(SwingConstants.CENTER);
         setFont(new Font("Palatino", Font.BOLD, 18));
 
-        this.mazeApp = mazeApp;
         addActionListener(this);
     }
 

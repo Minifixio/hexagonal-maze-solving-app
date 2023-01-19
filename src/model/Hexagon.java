@@ -5,9 +5,9 @@ import java.awt.geom.Path2D;
 public class Hexagon extends Path2D.Float {
 
     private TexturePaint texturePaint;
-    private double xCenter;
-    private double yCenter;
-    private double size;
+    private final double xCenter;
+    private final double yCenter;
+    private final double size;
 
     public Hexagon(double xCenter, double yCenter, double size) {
         super();

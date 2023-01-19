@@ -1,13 +1,11 @@
 package ui.labels;
 
-import ui.MazeApp;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class InfoFileLabel extends JLabel {
-    public InfoFileLabel(MazeApp mazeApp) {
+    public InfoFileLabel() {
         super("<html>" +
                     "<div style='text-align: center;'>" +
                     "<b>Lire/sauver ses propres labyrinthes</b>" +
