@@ -156,12 +156,17 @@ public class MazeAppModel {
      * Utilisée pour changer le type d'une case (x,y) suite à un clic sur cette dernière
      * On a la rotation suivante :
      * EmptyWallMazeBox ->(clic)-> WallMazeBox
-     * WallMazeBox ->(clic)-> DepartureMazeBox
-     * DepartureMazeBox ->(clic)-> ArrivalMazeBox
-     * ArrivalMazeBox ->(clic)-> EmptyWallMazeBox
-     * Si il y a déjà une case d'arrivée (de départ), et que l'on clique sur un mur (sur une case de départ),
-     * on efface la case d'arrivée courante (de départ) en la remplacant par une case vide
      *
+     * WallMazeBox ->(clic)->
+     *                      si le départ est fixé :
+     *                          si l'arrivée est fixée : EmptyMazeBox
+     *                          sinon : ArrivalMazeBox
+     *
+     * DepartureMazeBox ->(clic)->
+     *                      si l'arrivée est fixée : EmptyMazeBox
+     *                      sinon : ArrivalMazeBox
+     *
+     * ArrivalMazeBox ->(clic)-> EmptyWallMazeBox
      */
     private void changeMazeBoxType(int x, int y) {
         MazeBox box = maze.getBoxByCoords(x, y);

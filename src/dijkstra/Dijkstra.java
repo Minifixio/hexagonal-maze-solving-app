@@ -1,10 +1,5 @@
 package dijkstra;
 
-import maze.ArrivalMazeBox;
-import maze.DepartureMazeBox;
-import maze.Maze;
-import maze.MazeDistance;
-
 import java.util.List;
 
 /**
@@ -26,7 +21,7 @@ public class Dijkstra {
     public static ShortestPaths dijkstra(Graph graph, Vertex startVertex, Vertex endVertex, Distance distance) {
         return dijkstra(graph, startVertex, endVertex, new ProcessedVertexesImpl(), new MinDistanceImpl(), distance, new ShortestPathsImpl());
     }
-    private static final ShortestPaths dijkstra(
+    private static ShortestPaths dijkstra(
             Graph graph,
             Vertex startVertex,
             Vertex endVertex,
@@ -43,7 +38,7 @@ public class Dijkstra {
             minDistance.setMinDistance(vertex, inf);
         }
 
-        while (processedVertexes.contains(endVertex) == false) {
+        while (!processedVertexes.contains(endVertex)) {
             List<Vertex> successors = pivot.getSuccessors();
             for (Vertex successor : successors) {
                 if (!processedVertexes.contains(successor)) {
