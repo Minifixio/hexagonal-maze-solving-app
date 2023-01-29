@@ -1,14 +1,9 @@
-import ui.MazeApp;
-import maze.Maze;
-import maze.MazeDistance;
 import maze.MazeReadingException;
+import ui.MazeApp;
 
 public class Main {
 
-    private static Maze maze;
-    private static MazeDistance mazeDistance;
-
-    public static void main(String[] args) throws MazeReadingException {
+    public static void main(String[] args) {
         new MazeApp(1000,1000,30, 5, 12, 12);
     }
 
