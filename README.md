@@ -1,32 +1,32 @@
-# Java hexagonal maze solving app
-
-Lire la documentation en Français : [Documentation](README.fr.md)
-
-## How to use
-1) Download or clone this repository (*ex:* ```$git clone https://github.com/Minifixio/hexagonal-maze-solving-app.git```)
-
-2) Go to ```/out/production/hexagonal-maze-solver``` using ```$cd hexagonal-maze-solving-app/out/production/hexagonal-maze-solver```
-3) Use a Java version ```>=19.0``` 
-4) Run ```$java Main```
-
-# How it works
-Click on a tile to change its type. You can set the departure point represented by the traveller and the arrival point with the flag.
-
-You can change the labyrinth size with the size inputs.
-
-You can generate a random maze using Randomize button.
-
-You can Load your own Labyrinth files as long as they respect the **file format**
-
-# File format
-You can load and export your labyrinths according to a specific format :
-1) You must write it in a ```txt``` file
-2) Each line must be the same length
-3) You can only write char among ```{'E', 'W', 'A', 'D'}``` with the corresponding match : ```{'E' => Empty Maze Box, 'W' => Wall, 'A' => Arrival, 'A' => Departure}```
-4) You must **only one Departure** case and **only one Arrival**.
+# Solveur de labyrinthes hexagonaux en Java
 
 
-## Preview
+**AVERTISSEMENT :** Ce projet a été développé avec IntelliJ IDEA avec un **OpenJDK version 19**
+
+## Comment l'utiliser ?
+1) Télécharger ou cloner le repo (*ex:* ```$ git clone https://github.com/Minifixio/hexagonal-maze-solving-app.git```)
+2) Se rendre à ```/out/production/hexagonal-maze-solver``` en faisant ```$ cd hexagonal-maze-solving-app/out/production/hexagonal-maze-solver```
+3) Attention : utiliser une version de Java ```>=19.0``` 
+4) Faire ```$ java Main```
+
+# Comment cela fonctionne ?
+Cliquez sur une tuile pour changer son type. Vous pouvez positionner un point de départ (représenté par le personnage du voyageur) et un point d'arrivée (le drapeau rouge)
+
+Vous pouvez modifier la taille du labyrinthe avec les inputs sur le panneau de droite.
+
+Vous pouvez également générer un albyrinthe aléatoire en cliquant sur le bouton sur le panneau de droite.
+
+Vous pouvez enfin charger et exporter vos fichiers labyrinthes à condition qu'ils respectent le **format de fichier**
+
+# Format de fichier
+Pour charger vos labyrinthes vous devez respecter ce format :
+
+1) Vous devez écrire dans un fichier ```txt```
+2) Chaque ligne doit être de la même longueur
+3) Les lignes se composent de caractères pris dans l'ensemble : ```{'E', 'W', 'A', 'D'}``` avec les correspondances : ```{'E' => Empty Maze Box, 'W' => Wall, 'A' => Arrival, 'A' => Departure}```
+4) Vous devez placer **une seule** case de départ (lettre ```D```) et **une seule** case d'arrivée (lettre ```A```)
+
+## Aperçus
 ![Preview 1](./previews/preview1.png)
 ![Preview 2](./previews/preview2.png)
 ![Preview 3](./previews/preview3.png)
