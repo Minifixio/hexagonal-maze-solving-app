@@ -10,7 +10,7 @@ public class InfoFileLabel extends JLabel {
                     "<div style='text-align: center;'>" +
                     "<b>Lire/sauver ses propres labyrinthes</b>" +
                     "<p>" +
-                        "Vous pouvez charger vos labyrinthe depuis Fichier>Charger un fichier. " +
+                        "Vous pouvez charger vos labyrinthe depuis MenuBar>Fichier>Charger un fichier. " +
                         "Chacunes des lignes doivent avoir la même longueur et doivent être uniquement composée de cractères parmis 'W', 'E', 'A' ou 'D'" +
                     "</p>" +
                     "</div>" +

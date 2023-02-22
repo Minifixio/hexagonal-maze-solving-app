@@ -11,7 +11,7 @@ public class InfoMazeBoxesLabel extends JLabel {
                     "<b>A propos de l'éditeur de labyrinthe</b>" +
                     "<p>" +
                         "Cliquez sur une case pour changer son type. " +
-                        "Il ne peut y avoir qu'une seule case d'arrivée et une seule de départ." +
+                        "La case voyageur est le départ, le drapeau est l'arrivée. Une fois une de ces cases placée, pour la changer, cliquer dessus pour la retirer puis la placer autre part." +
                     "</p> " +
                     "</div>" +
                     "</html>"
